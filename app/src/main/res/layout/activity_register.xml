@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".RegisterActivity">
+
+    <ProgressBar
+            android:id="@+id/progresVar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_marginTop="1dp"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            android:layout_alignParentTop="true"/>
+
+    <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="NOMBRE"
+            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/progresVar"/>
+    <EditText
+            android:id="@+id/lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="APELLIDO"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/name"/>
+
+    <EditText
+            android:id="@+id/emailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="CORREO ELECTRONICO"
+            android:ems="1"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp" android:layout_below="@+id/lastname"/>
+    <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="CONTRASEÑA"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/emailAddress"/>
+
+    <Button
+            android:id="@+id/buttonRegister"
+            android:onClick="buttonRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REGISTRARSE"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/password"/>
+
+</RelativeLayout>
