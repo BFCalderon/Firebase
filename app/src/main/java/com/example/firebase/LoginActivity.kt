@@ -35,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
     private fun loguinUser(){
         if (!TextUtils.isEmpty(password.text) && !TextUtils.isEmpty(email.text)){
             progresVarLoguin.visibility = View.VISIBLE
-
             auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
                 .addOnCompleteListener(this) {task ->
                     if(task.isSuccessful) {
@@ -46,6 +45,8 @@ class LoginActivity : AppCompatActivity() {
                     }
                     progresVarLoguin.visibility = View.INVISIBLE
                 }
+        }else{
+            Toast.makeText(this, "DATOS INCOMPLETOS", Toast.LENGTH_SHORT).show()
         }
     }
     private fun action(){
