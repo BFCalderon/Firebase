@@ -20,11 +20,12 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
     }
-    private fun signin(view: View){
-
+    fun signin(view: View){
+        loguinUser()
     }
 
     fun forgotPass(view: View){
+        startActivity(Intent(this, forgotPassActivity::class.java))
     }
 
     fun register(view: View){
@@ -37,16 +38,19 @@ class LoginActivity : AppCompatActivity() {
 
             auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
                 .addOnCompleteListener(this) {task ->
-                    if(task.isSuccessful){
+                    if(task.isSuccessful) {
                         action()
-                    }else{
+                    } else {
                         Toast.makeText(this, "ERROR DE AUTENTICACION", Toast.LENGTH_SHORT).show()
                         progresVarLoguin.visibility = View.INVISIBLE
                     }
+                    progresVarLoguin.visibility = View.INVISIBLE
                 }
         }
     }
     private fun action(){
         startActivity(Intent(this, BluetoothActivity::class.java))
+        password.text.clear()
+        email.text.clear()
     }
 }
