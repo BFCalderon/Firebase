@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DeviceListActivity">
+
+    <RelativeLayout
+            android:id="@+id/relativeCharging"
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:layout_height="match_parent">
+
+        <ImageButton
+                android:id="@+id/reconectar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:src="@drawable/ic_bluetooth"
+                android:contentDescription="CONECTAR"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"/>
+
+        <LinearLayout
+                android:id="@+id/linearConecting"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentBottom="true">
+
+            <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:layout_margin="5dp"
+                    android:indeterminateTintMode="src_atop"
+                    android:indeterminateTint="@color/colorPrimary"
+                    android:indeterminateDuration="@android:integer/status_bar_notification_info_maxnum"
+            />
+            <TextView
+                    android:id="@+id/connecting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/conecting"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/relativeInformation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+        <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/testView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Tamaño del String = ..."
+                    android:textSize="15sp" />
+
+            <TextView
+                    android:id="@+id/txtString"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="DATOS RECIBIDOS:"
+                    android:textSize="30sp" />
+        </LinearLayout>
+
+        <ScrollView
+                android:id="@+id/scrollMeasures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_below="@+id/linear1"
+                android:layout_above="@+id/linearPruebaConexion"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <LinearLayout
+                        android:id="@+id/linear2"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/linear1"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="50dp"
+                            android:gravity="center"
+                            android:text="VADC 1: ">
+                    </TextView>
+                    <TextView
+                            android:id="@+id/adc1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/linear3"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/linear2"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_marginLeft="50dp"
+                            android:text="VADC 2: ">
+                    </TextView>
+                    <TextView
+                            android:id="@+id/adc2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/linear4"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/linear3"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_marginLeft="50dp"
+                            android:text="VADC 3: ">
+                    </TextView>
+                    <TextView
+                            android:id="@+id/adc3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/linear5"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/linear4"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="50dp"
+                            android:gravity="center"
+                            android:text="VADC 4: ">
+                    </TextView>
+                    <TextView
+                            android:id="@+id/adc4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/linear6"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/linear5"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="50dp"
+                            android:gravity="center"
+                            android:text="VADC 5: ">
+                    </TextView>
+                    <TextView
+                            android:id="@+id/adc5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/linear7"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/linear6"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="50dp"
+                            android:gravity="center"
+                            android:text="VADC 6: ">
+                    </TextView>
+                    <TextView
+                            android:id="@+id/adc6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/linear8"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/linear7"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="50dp"
+                            android:gravity="center"
+                            android:text="VADC 7: ">
+                    </TextView>
+                    <TextView
+                            android:id="@+id/adc7"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/linear9"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/linear8"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="0dp"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="50dp"
+                            android:gravity="center"
+                            android:text="VADC 8: ">
+                    </TextView>
+                    <TextView
+                            android:id="@+id/adc8"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/linear10"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/linear9"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="0dp"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="50dp"
+                            android:gravity="center"
+                            android:text="EEPROM: ">
+                    </TextView>
+                    <TextView
+                            android:id="@+id/eeprom"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/linear11"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/linear10"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="0dp"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="50dp"
+                            android:gravity="center"
+                            android:text="HORA: ">
+                    </TextView>
+                    <TextView
+                            android:id="@+id/rtcHour"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/linear12"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/linear11"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="0dp"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="50dp"
+                            android:gravity="center"
+                            android:text="FECHA: ">
+                    </TextView>
+                    <TextView
+                            android:id="@+id/rtcDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="">
+                    </TextView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearPruebaConexion"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+            <Button
+                    android:id="@+id/buttonOn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="12345"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"/>
+            <Button
+                    android:id="@+id/buttonOff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="BRAYAN"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

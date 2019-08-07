@@ -18,7 +18,6 @@ import java.io.OutputStream
 import java.util.*
 
 class BluetoothActivity : AppCompatActivity() {
-
     // Debugging for LOGCAT
     private val TAG = "DeviceListActivity"
     // EXTRA string to send on to mainactivity
@@ -26,7 +25,7 @@ class BluetoothActivity : AppCompatActivity() {
     // Member fields
     private lateinit var mBtAdapter: BluetoothAdapter
     private lateinit var mPairedDevicesArrayAdapter: ArrayAdapter<String>
-    private var btSocket: BluetoothSocket?= null
+    private var btSocket: BluetoothSocket ?= null
     // SPP UUID service - this should work for most devices
     private val BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
     private var mConnectedThread: ConnectedThread ?= ConnectedThread()
