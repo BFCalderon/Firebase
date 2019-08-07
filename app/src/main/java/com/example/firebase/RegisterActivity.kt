@@ -24,7 +24,7 @@ class RegisterActivity : AppCompatActivity() {
 
         database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
-        dbReference = database.reference.child("User")
+        dbReference = database.reference.child("USUARIOS")
     }
 
     fun buttonRegister(view: View){
@@ -55,8 +55,8 @@ class RegisterActivity : AppCompatActivity() {
                         val user: FirebaseUser? = auth.currentUser
                         verifyEmail(user)
                         val userBD = dbReference.child(user?.uid!!)
-                        userBD.child("Name").setValue(name)
-                        userBD.child("LastName").setValue(lastName)
+                        userBD.child("NOMBRE").setValue(name)
+                        userBD.child("APELLIDO").setValue(lastName)
                         action()
                     }
                 }
@@ -66,7 +66,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun verifyEmail(user: FirebaseUser?){
         user?.sendEmailVerification()?.addOnCompleteListener(this){task ->
             if(task.isComplete){
-                Toast.makeText(this, "EMAIL ENVIADO", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "CORREO DE CONFIRMACION ENVIADO", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(this, "ERROR AL ENVIAR EMAIL DE VERIFICACION", Toast.LENGTH_SHORT).show()
             }

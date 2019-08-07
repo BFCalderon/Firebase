@@ -22,7 +22,7 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="NOMBRE"
+            android:hint=" Nombre"
             android:layout_marginTop="10dp"
             android:layout_margin="10dp"
             android:layout_below="@+id/progresVar"/>
@@ -30,7 +30,7 @@
             android:id="@+id/lastname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="APELLIDO"
+            android:hint=" Apellido"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/name"/>
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:hint="CORREO ELECTRONICO"
+            android:hint=" Email"
             android:ems="1"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp" android:layout_below="@+id/lastname"/>
@@ -48,7 +48,7 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="CONTRASEÑA"
+            android:hint=" Contraseña"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
             android:inputType="textPassword"
