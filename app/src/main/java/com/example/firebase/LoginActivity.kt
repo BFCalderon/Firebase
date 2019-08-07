@@ -1,14 +1,14 @@
 package com.example.firebase
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.password
 
 class LoginActivity : AppCompatActivity() {
 
@@ -30,6 +30,24 @@ class LoginActivity : AppCompatActivity() {
 
     fun register(view: View){
         startActivity(Intent(this, RegisterActivity::class.java))
+    }
+
+    fun offlineButton(view: View){
+        popUpMessage()
+    }
+
+    private fun popUpMessage() {
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog.setTitle("OFFLINE")
+        alertDialog.setMessage("Los datos no se enviaran al servidor. ¿Desea continuar?")
+
+        alertDialog.setPositiveButton("SI") { _, _ ->
+            startActivity(Intent(this, BluetoothActivity::class.java))
+        }
+        alertDialog.setNegativeButton("NO") { _, _ ->
+            Toast.makeText(this, "SI NO TIENE UN CUENTA POR FAVOR REGISTRESE!", Toast.LENGTH_LONG).show()
+        }
+        alertDialog.show()
     }
 
     private fun loguinUser(){

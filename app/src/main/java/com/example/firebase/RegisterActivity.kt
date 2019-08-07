@@ -33,6 +33,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun action(){
         startActivity(Intent(this, LoginActivity::class.java))
+        progresVar.visibility = View.INVISIBLE
     }
     private fun createNewAcount(){
         val name : String = name.text.toString()

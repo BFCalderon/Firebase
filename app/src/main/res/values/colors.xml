@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#055746</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimaryDark1">#FF03332A</color>
+    <color name="blue">#FF03597C</color>
+    <color name="progresbarColor">#037724</color>
 </resources>

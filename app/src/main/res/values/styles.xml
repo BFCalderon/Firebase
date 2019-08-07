@@ -5,7 +5,13 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimaryDark1</item>
     </style>
+
+    <style name="Theme.App.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:editTextStyle">@style/Widget.App.EditText</item>
+        </style> <style name="Widget.App.EditText" parent="Widget.AppCompat.EditText"> ??? </style>
+
+    <style name="MyEditTextTheme">#C50C0C<item name="colorControlNormal">#C50C0C</item></style>
 
 </resources>

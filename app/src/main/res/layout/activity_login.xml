@@ -17,6 +17,8 @@
             android:visibility="invisible"
             android:layout_alignParentTop="true"
             app:layout_constraintTop_toTopOf="parent"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/progresbarColor"
         />
 
     <ScrollView
@@ -26,27 +28,26 @@
             android:layout_marginTop="100dp"
             app:layout_constraintTop_toBottomOf="@+id/progresVarLoguin">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintTop_toBottomOf="parent">
-
             <EditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="arbolenergetico@correo.com"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
                     android:layout_margin="10dp"
                     tools:layout_editor_absoluteX="10dp"
                     android:layout_marginTop="10dp"
                     app:layout_constraintTop_toTopOf="parent"/>
-
             <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contraseña"
+                    android:inputType="textPassword"
+                    android:hint=" Contraseña"
                     android:layout_margin="10dp"
                     app:layout_constraintTop_toBottomOf="@+id/email"
                     android:layout_marginTop="20dp"/>
@@ -65,32 +66,55 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/round_button"
+            />
+            <Button
+                    android:id="@+id/offlineButton"
+                    android:onClick="offlineButton"
+                    android:text="OFFLINE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/signin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/round_button"
             />
             <Button
                     android:id="@+id/forgotPass"
                     android:onClick="forgotPass"
-                    android:text="RECUPERAR CONTRASEÑA"
+                    android:text="¿RECUPERAR CONTRASEÑA?"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/signin" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:background="@color/colorPrimary"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/offlineButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/background_null"/>
 
             <Button
                     android:id="@+id/register"
                     android:onClick="register"
                     android:text="REGISTRARSE"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/forgotPass" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintTop_toBottomOf="@+id/forgotPass"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
-                    android:background="@color/colorPrimary"/>
-
+                    android:background="@drawable/background_null"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

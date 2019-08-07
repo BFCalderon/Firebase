@@ -1,5 +1,6 @@
 package com.example.firebase
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -25,6 +26,7 @@ class forgotPassActivity : AppCompatActivity() {
             auth.sendPasswordResetEmail(email.text.toString())
                 .addOnCompleteListener {Task ->
                     if(Task.isSuccessful){
+                        startActivity(Intent(this, LoginActivity::class.java))
                         Toast.makeText(this, "EMAIL DE RECUPERACION ENVIADO", Toast.LENGTH_SHORT).show()
                     }else{
                         Toast.makeText(this, "ERROR AL ENVIAR EMAIL, VERIFIQUE Y VUELVA A INTENTARLO", Toast.LENGTH_LONG).show()
