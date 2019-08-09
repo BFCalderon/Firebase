@@ -82,7 +82,7 @@ class BluetoothActivity : AppCompatActivity() {
             }
         }
     }
- 
+
     //override fun
 
     override fun onCreate(savedInstanceState: Bundle?) {
