@@ -8,11 +8,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProviders
+import com.example.firebase.entities.TreeInformationEntity
+import com.example.firebase.viewmodel.TreeInformationViewModel
 import kotlinx.android.synthetic.main.activity_device_list.*
 import java.io.IOException
 import java.io.InputStream
@@ -20,6 +25,9 @@ import java.io.OutputStream
 import java.util.*
 
 class BluetoothActivity : AppCompatActivity() {
+    //BD
+    private lateinit var treeInformationViewModel: TreeInformationViewModel
+
     // Debugging for LOGCAT
     private val TAG = "DeviceListActivity"
     // EXTRA string to send on to mainactivity
@@ -89,6 +97,16 @@ class BluetoothActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_list)
         linearConecting.visibility = View.VISIBLE
+
+        //SqlLite Start
+        treeInformationViewModel = run {
+            ViewModelProviders.of(this).get(TreeInformationViewModel::class.java)
+        }
+        //addTreeInformation()
+        Handler().postDelayed({addObserver()},1000)
+        //SqlLite End
+
+
 
         sendBtn.setOnClickListener {
             if(!TextUtils.isEmpty(editSendBT.text)){
@@ -160,6 +178,7 @@ class BluetoothActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         closeBluetooth()
+        Toast.makeText(this@BluetoothActivity, "BT DESCONECTADO", Toast.LENGTH_SHORT).show()
     }
 
     private fun closeBluetooth(){
@@ -167,7 +186,6 @@ class BluetoothActivity : AppCompatActivity() {
             //Don't leave Bluetooth sockets open when leaving activity
             mConnectedThread!!.interrupt()
             btSocket!!.close()
-            Toast.makeText(this@BluetoothActivity, "BT DESCONECTADO", Toast.LENGTH_SHORT).show()
         } catch (e2: IOException) {
         }
     }
@@ -181,7 +199,8 @@ class BluetoothActivity : AppCompatActivity() {
         var conection = false
         do {
             try {
-                Handler().postDelayed({conectBluetooth()},1000)
+                Handler().postDelayed({
+                    conectBluetooth()},1000)
                 conection = true
             } catch ( e: IOException) {
                 Toast.makeText(this, "LA CREACION DEL SOCKED FALLÓ", Toast.LENGTH_LONG).show()
@@ -219,7 +238,23 @@ class BluetoothActivity : AppCompatActivity() {
             startActivityForResult(enableBtIntent, 1)
         }
     }
-    fun txtString(view: View){
 
+
+
+
+
+
+    private fun addObserver() {
+        treeInformationViewModel.treeInformation.observe(this, androidx.lifecycle.Observer<List<TreeInformationEntity>>{
+            it.forEach {
+                it
+            }
+        })
+    }
+
+    private fun addTreeInformation() {
+        for(i in 0..10)
+        treeInformationViewModel.SaveTreeInformation(TreeInformationEntity("$i/08/2019","00:19","${i*10}"))
     }
 }
+
