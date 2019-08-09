@@ -21,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
     }
     fun signin(view: View){
+        view
         loguinUser()
     }
 

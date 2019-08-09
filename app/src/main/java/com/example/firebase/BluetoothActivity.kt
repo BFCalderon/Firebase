@@ -7,8 +7,10 @@ import android.bluetooth.BluetoothSocket
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.text.TextUtils
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_device_list.*
@@ -81,11 +83,21 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
+    //override fun
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_list)
         linearConecting.visibility = View.VISIBLE
 
+        sendBtn.setOnClickListener {
+            if(!TextUtils.isEmpty(editSendBT.text)){
+                mConnectedThread!!.write("${editSendBT.text}")
+                editSendBT.text.clear()
+            }else{
+                Toast.makeText(this, "CAMPO VACIO", Toast.LENGTH_SHORT).show()
+            }
+        }
         reconectar.setOnClickListener {
             conectBluetoothManager()
         }
@@ -103,11 +115,9 @@ class BluetoothActivity : AppCompatActivity() {
             object : Handler() {
                 override fun handleMessage(msg: android.os.Message) {
                     if (msg.what == handlerState) {                        //if message is what we want
-                        val readMessage =
-                            msg.obj as String                              // msg.arg1 = bytes from connect thread
+                        val readMessage = msg.obj as String                // msg.arg1 = bytes from connect thread
                         recDataString.append(readMessage)                  //keep appending to string until ~
-                        val bar =
-                            recDataString.toString().split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        val bar = recDataString.toString().split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                         if (bar.size >= 11 && bar[10].length > 13) {
                             if(firstTime) {
                                 relativeCharging.visibility = View.GONE
@@ -127,6 +137,8 @@ class BluetoothActivity : AppCompatActivity() {
                             if (rtcDate.text.toString() != bar[10]) {
                                 rtcDate.text = bar[10]
                             }
+                        }else if(bar.size == 1 && bar[0] != "" && bar[0] != "\r"){
+                            Toast.makeText(this@BluetoothActivity, bar[0], Toast.LENGTH_SHORT).show()
                         }
                         val endOfLineIndex = recDataString.indexOf("~")                    // determine the end-of-line
                         if (endOfLineIndex > 0) {                                           // make sure there data before ~
@@ -140,14 +152,23 @@ class BluetoothActivity : AppCompatActivity() {
             }
     }
 
+    override fun onPause() {
+        super.onPause()
+        closeBluetooth()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        closeBluetooth()
+    }
+
+    private fun closeBluetooth(){
         try {
             //Don't leave Bluetooth sockets open when leaving activity
             mConnectedThread!!.interrupt()
             btSocket!!.close()
+            Toast.makeText(this@BluetoothActivity, "BT DESCONECTADO", Toast.LENGTH_SHORT).show()
         } catch (e2: IOException) {
-            //insert code to deal with this
         }
     }
 
@@ -160,7 +181,7 @@ class BluetoothActivity : AppCompatActivity() {
         var conection = false
         do {
             try {
-                Handler().postDelayed({conectBluetooth()},2500)
+                Handler().postDelayed({conectBluetooth()},1000)
                 conection = true
             } catch ( e: IOException) {
                 Toast.makeText(this, "LA CREACION DEL SOCKED FALLÓ", Toast.LENGTH_LONG).show()
@@ -197,5 +218,8 @@ class BluetoothActivity : AppCompatActivity() {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(enableBtIntent, 1)
         }
+    }
+    fun txtString(view: View){
+
     }
 }
