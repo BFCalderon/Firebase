@@ -7,7 +7,9 @@ import com.example.firebase.repository.TreeInformationRepository
 
 class TreeInformationViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = TreeInformationRepository(application)
-    val treeInformation = repository.getTreeInformation()
+    //val treeInformation = repository.getTreeInformation()
+
+    fun getAllDateInformation() = repository.getTreeInformation()
 
     fun SaveTreeInformation(treeInformation: TreeInformationEntity) {
         repository.insert(treeInformation)

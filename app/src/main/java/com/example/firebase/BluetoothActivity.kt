@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import com.example.firebase.entities.TreeInformationEntity
+import com.example.firebase.valueobjects.dateInformationVO
 import com.example.firebase.viewmodel.TreeInformationViewModel
 import kotlinx.android.synthetic.main.activity_device_list.*
 import java.io.IOException
@@ -103,7 +104,7 @@ class BluetoothActivity : AppCompatActivity() {
             ViewModelProviders.of(this).get(TreeInformationViewModel::class.java)
         }
         //addTreeInformation()
-        Handler().postDelayed({addObserver()},1000)
+        Handler().postDelayed({ addObserver()},1000)
         //SqlLite End
 
 
@@ -239,22 +240,13 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
-
-
-
-
-
     private fun addObserver() {
-        treeInformationViewModel.treeInformation.observe(this, androidx.lifecycle.Observer<List<TreeInformationEntity>>{
-            it.forEach {
-                it
-            }
-        })
+        treeInformationViewModel.getAllDateInformation().observe(this, androidx.lifecycle.Observer<List<dateInformationVO>>{})
     }
 
     private fun addTreeInformation() {
-        for(i in 0..10)
-        treeInformationViewModel.SaveTreeInformation(TreeInformationEntity("$i/08/2019","00:19","${i*10}"))
+        for(i in 1..10)
+        treeInformationViewModel.SaveTreeInformation(TreeInformationEntity("${i+1}/08/2019","$i:19",i*10.5498f))
     }
 }
 

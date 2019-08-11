@@ -10,7 +10,7 @@ import com.google.firebase.database.annotations.NotNull
 data class TreeInformationEntity(
     @ColumnInfo(name = "DATE") @NotNull val DATE: String,
     @ColumnInfo(name = "HOUR") @NotNull val HOUR: String,
-    @ColumnInfo(name = "POWER") val POWER: String? = null
+    @ColumnInfo(name = "POWER") val POWER: Float? = null
 ) {
     companion object {
         const val TABLE_NAME = "TREE_INFORMATION"
