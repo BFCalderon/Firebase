@@ -9,8 +9,18 @@
     <RelativeLayout
             android:id="@+id/relativeCharging"
             android:layout_width="match_parent"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_height="match_parent">
+
+        <VideoView
+                android:id="@+id/videoView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_marginTop="0dp"
+                android:layout_alignParentTop="true" android:layout_alignParentStart="true"
+                android:layout_marginLeft="0dp" android:layout_marginStart="0dp" android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true" android:layout_alignParentRight="true"
+                android:layout_marginRight="0dp" android:layout_marginEnd="0dp" android:layout_alignParentBottom="true"
+                android:layout_marginBottom="0dp"/>
 
         <ImageButton
                 android:id="@+id/reconectar"
@@ -60,21 +70,21 @@
             android:id="@+id/relativeInformation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible">
+            android:visibility="gone">
 
         <LinearLayout
                 android:id="@+id/linear1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_margin="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
                 android:orientation="vertical">
 
             <TextView
                     android:id="@+id/testView1"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:text="Tamaño del String = ..."
                     android:textSize="15sp" />
 
@@ -82,7 +92,6 @@
                     android:id="@+id/txtString"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:text="DATOS RECIBIDOS:"
                     android:textSize="30sp" />
         </LinearLayout>
@@ -387,6 +396,7 @@
                             android:layout_margin="5dp"
                             android:layout_weight="15"
                             android:hint="Enviar String"/>
+
                     <ImageButton
                             android:id="@+id/sendBtn"
                             android:src="@drawable/ic_send"
@@ -399,7 +409,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerInformation"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 

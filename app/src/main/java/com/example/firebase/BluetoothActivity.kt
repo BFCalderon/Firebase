@@ -5,17 +5,16 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.LinearLayout
+import android.widget.MediaController
 import android.widget.Toast
+import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,7 +31,10 @@ import kotlin.collections.ArrayList
 
 class BluetoothActivity : AppCompatActivity() {
 
-    //
+    //Variable para reproducir el video
+    private lateinit var videoTree: VideoView
+
+    //Informacion en la base de datos
     var dateInfoBD: ArrayList<dateInformationVO> ?= ArrayList()
     //Adapter
     private var adapterInformationDates: TreeInformationAdapter ?= null
@@ -103,32 +105,11 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
-    //override fun
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_list)
         linearConecting.visibility = View.VISIBLE
 
-        //Adapter Init
-        dateInfoBD!!.add(dateInformationVO(
-            date = "05/06",
-            hour = "03:35",
-            power = 59.88f
-        ))
-        dateInfoBD!!.add(dateInformationVO(
-            date = "05/06",
-            hour = "03:35",
-            power = 59.88f
-        ))
-        dateInfoBD!!.add(dateInformationVO(
-            date = "05/06",
-            hour = "03:35",
-            power = 59.88f
-        ))
-        adapterInformationDates = TreeInformationAdapter(dateInfoBD!!)
-        recyclerDateInfBD = recyclerInformation
-        recyclerDateInfBD!!.layoutManager = LinearLayoutManager(this)
         //SqlLite Start
         treeInformationViewModel = run {
             ViewModelProviders.of(this).get(TreeInformationViewModel::class.java)
@@ -137,28 +118,20 @@ class BluetoothActivity : AppCompatActivity() {
         Handler().postDelayed({ addObserver()},1000)
         //SqlLite End
 
-
-
-        sendBtn.setOnClickListener {
-            if(!TextUtils.isEmpty(editSendBT.text)){
-                mConnectedThread!!.write("${editSendBT.text}")
-                editSendBT.text.clear()
-            }else{
-                Toast.makeText(this, "CAMPO VACIO", Toast.LENGTH_SHORT).show()
-            }
+        initButons()
+        initBTReciberListener()
+        initVideo()
+    }
+    private fun initVideo(){
+        videoTree = videoView
+        val path = Uri.parse("android.resource://" + this.baseContext.packageName + "/" + R.raw.video)
+        videoTree.setVideoURI(path)
+        videoTree.start()
+        videoTree.setOnPreparedListener { mp ->
+            mp.isLooping = true
         }
-        reconectar.setOnClickListener {
-            conectBluetoothManager()
-        }
-        buttonOn.setOnClickListener {
-            mConnectedThread!!.write("12345")
-            Toast.makeText(baseContext, "12345", Toast.LENGTH_SHORT).show()
-        }
-        buttonOff.setOnClickListener {
-            mConnectedThread!!.write("BRAYAN")
-            Toast.makeText(baseContext, "BRAYAN", Toast.LENGTH_SHORT).show()
-        }
-
+    }
+    private fun initBTReciberListener(){
         bluetoothIn =
             @SuppressLint("HandlerLeak")
             object : Handler() {
@@ -171,6 +144,7 @@ class BluetoothActivity : AppCompatActivity() {
                             if(firstTime) {
                                 relativeCharging.visibility = View.GONE
                                 relativeInformation.visibility = View.VISIBLE
+                                videoTree.stopPlayback()
                                 firstTime = false
                             }
                             adc1.text = bar[0]
@@ -199,6 +173,34 @@ class BluetoothActivity : AppCompatActivity() {
                     }
                 }
             }
+    }
+    private fun initButons(){
+        sendBtn.setOnClickListener {
+            if(!TextUtils.isEmpty(editSendBT.text)){
+                mConnectedThread!!.write("${editSendBT.text}")
+                editSendBT.text.clear()
+            }else{
+                Toast.makeText(this, "CAMPO VACIO", Toast.LENGTH_SHORT).show()
+            }
+        }
+        reconectar.setOnClickListener {
+            conectBluetoothManager()
+        }
+        buttonOn.setOnClickListener {
+            mConnectedThread!!.write("12345")
+            Toast.makeText(baseContext, "12345", Toast.LENGTH_SHORT).show()
+        }
+        buttonOff.setOnClickListener {
+            mConnectedThread!!.write("BRAYAN")
+            Toast.makeText(baseContext, "BRAYAN", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun startRecycler(){
+        adapterInformationDates = TreeInformationAdapter(dateInfoBD!!)
+        recyclerDateInfBD = recyclerInformation
+        recyclerDateInfBD!!.layoutManager = LinearLayoutManager(this)
+        recyclerDateInfBD!!.adapter = this.adapterInformationDates
     }
 
     override fun onPause() {
@@ -271,12 +273,18 @@ class BluetoothActivity : AppCompatActivity() {
     }
 
     private fun addObserver() {
-        treeInformationViewModel.getAllDateInformation().observe(this, androidx.lifecycle.Observer<List<dateInformationVO>>{})
+        treeInformationViewModel.getAllDateInformation().observe(this, androidx.lifecycle.Observer<List<dateInformationVO>>{dateInf ->
+            dateInfoBD!!.clear()
+            dateInf.forEach {
+                dateInfoBD!!.add(it)
+            }
+            startRecycler()
+        })
     }
 
     private fun addTreeInformation() {
         for(i in 1..10)
-        treeInformationViewModel.SaveTreeInformation(TreeInformationEntity("${i+1}/08/2019","$i:19",i*10.5498f))
+        treeInformationViewModel.saveTreeInformation(TreeInformationEntity("${i+1}/08/2019","$i:19",i*10.5498f))
     }
 }
 

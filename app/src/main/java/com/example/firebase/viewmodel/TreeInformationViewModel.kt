@@ -11,7 +11,7 @@ class TreeInformationViewModel(application: Application) : AndroidViewModel(appl
 
     fun getAllDateInformation() = repository.getTreeInformation()
 
-    fun SaveTreeInformation(treeInformation: TreeInformationEntity) {
+    fun saveTreeInformation(treeInformation: TreeInformationEntity) {
         repository.insert(treeInformation)
     }
 }
