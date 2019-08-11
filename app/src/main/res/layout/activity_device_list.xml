@@ -9,7 +9,7 @@
     <RelativeLayout
             android:id="@+id/relativeCharging"
             android:layout_width="match_parent"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_height="match_parent">
 
         <ImageButton
@@ -60,7 +60,7 @@
             android:id="@+id/relativeInformation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="visible">
 
         <LinearLayout
                 android:id="@+id/linear1"
@@ -396,6 +396,11 @@
                             android:background="@drawable/background_null"/>
                 </LinearLayout>
 
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerInformation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 
         </ScrollView>

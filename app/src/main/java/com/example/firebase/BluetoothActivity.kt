@@ -12,10 +12,14 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.firebase.adapters.TreeInformationAdapter
 import com.example.firebase.entities.TreeInformationEntity
 import com.example.firebase.valueobjects.dateInformationVO
 import com.example.firebase.viewmodel.TreeInformationViewModel
@@ -24,8 +28,15 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
+import kotlin.collections.ArrayList
 
 class BluetoothActivity : AppCompatActivity() {
+
+    //
+    var dateInfoBD: ArrayList<dateInformationVO> ?= ArrayList()
+    //Adapter
+    private var adapterInformationDates: TreeInformationAdapter ?= null
+    private var recyclerDateInfBD: RecyclerView ?= null
     //BD
     private lateinit var treeInformationViewModel: TreeInformationViewModel
 
@@ -99,6 +110,25 @@ class BluetoothActivity : AppCompatActivity() {
         setContentView(R.layout.activity_device_list)
         linearConecting.visibility = View.VISIBLE
 
+        //Adapter Init
+        dateInfoBD!!.add(dateInformationVO(
+            date = "05/06",
+            hour = "03:35",
+            power = 59.88f
+        ))
+        dateInfoBD!!.add(dateInformationVO(
+            date = "05/06",
+            hour = "03:35",
+            power = 59.88f
+        ))
+        dateInfoBD!!.add(dateInformationVO(
+            date = "05/06",
+            hour = "03:35",
+            power = 59.88f
+        ))
+        adapterInformationDates = TreeInformationAdapter(dateInfoBD!!)
+        recyclerDateInfBD = recyclerInformation
+        recyclerDateInfBD!!.layoutManager = LinearLayoutManager(this)
         //SqlLite Start
         treeInformationViewModel = run {
             ViewModelProviders.of(this).get(TreeInformationViewModel::class.java)

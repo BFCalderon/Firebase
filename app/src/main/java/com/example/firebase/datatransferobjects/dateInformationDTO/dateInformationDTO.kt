@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import com.example.firebase.datatransferobjects.GenericDataTransferObject
 import com.example.firebase.entities.TreeInformationEntity
 import com.example.firebase.valueobjects.dateInformationVO
-import java.lang.reflect.Array
 
 object dateInformationDTO : GenericDataTransferObject<TreeInformationEntity, dateInformationVO>() {
     override fun dataToObject(entity: TreeInformationEntity): dateInformationVO {

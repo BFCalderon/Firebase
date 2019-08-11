@@ -12,5 +12,5 @@ class dateInformationVO {
         this.power = power
     }
 
-    constructor()
+    //constructor()
 }
