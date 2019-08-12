@@ -3,17 +3,17 @@ package com.example.firebase.datatransferobjects.dateInformationDTO
 import androidx.lifecycle.LiveData
 import com.example.firebase.datatransferobjects.GenericDataTransferObject
 import com.example.firebase.entities.TreeInformationEntity
-import com.example.firebase.valueobjects.dateInformationVO
+import com.example.firebase.valueobjects.DateInformationVO
 
-object dateInformationDTO : GenericDataTransferObject<TreeInformationEntity, dateInformationVO>() {
-    override fun dataToObject(entity: TreeInformationEntity): dateInformationVO {
-        return dateInformationVO(
-            entity.DATE,
-            entity.HOUR,
-            entity.POWER)
+object dateInformationDTO : GenericDataTransferObject<TreeInformationEntity, DateInformationVO>() {
+    override fun dataToObject(entity: TreeInformationEntity): DateInformationVO {
+        return DateInformationVO(
+            entity.date,
+            entity.hour,
+            entity.power)
     }
 
-    override fun objectToData(objectVO: dateInformationVO): TreeInformationEntity {
+    override fun objectToData(objectVO: DateInformationVO): TreeInformationEntity {
         return TreeInformationEntity(
             objectVO.date!!,
             objectVO.hour!!,
@@ -25,11 +25,11 @@ object dateInformationDTO : GenericDataTransferObject<TreeInformationEntity, dat
     fun getInformationDate(entities: LiveData<List<TreeInformationEntity>>) =
         getVOLiveData(entities)
 
-    fun getInformationDate(dateInformation: TreeInformationEntity): dateInformationVO{
-        return dateInformationVO(
-            date = dateInformation.DATE,
-            hour = dateInformation.HOUR,
-            power = dateInformation.POWER
+    fun getInformationDate(dateInformation: TreeInformationEntity): DateInformationVO{
+        return DateInformationVO(
+            date = dateInformation.date,
+            hour = dateInformation.hour,
+            power = dateInformation.power
         )
     }
 }

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Firebase</string>
-    <string name="email">arbolenergetico@correo.com</string>
+    <string name="email">arbolenergetico@udistrital.edu.co</string>
     <string name="action_settings">Configuracion</string>
     <string name="hello_world">Hola Mundo</string>
     <string name="none_paired">Ningun dispositivo pudo ser emparejado</string>

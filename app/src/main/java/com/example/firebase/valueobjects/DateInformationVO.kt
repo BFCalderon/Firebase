@@ -1,6 +1,6 @@
 package com.example.firebase.valueobjects
 
-class dateInformationVO {
+class DateInformationVO {
 
     var date: String? = null
     var hour: String? = null
@@ -12,5 +12,5 @@ class dateInformationVO {
         this.power = power
     }
 
-    //constructor()
+    constructor()
 }

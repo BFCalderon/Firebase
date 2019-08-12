@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebase.R
-import com.example.firebase.valueobjects.dateInformationVO
+import com.example.firebase.valueobjects.DateInformationVO
 import kotlinx.android.synthetic.main.adapter_date.view.*
 
-class TreeInformationAdapter(items: ArrayList<dateInformationVO>): RecyclerView.Adapter<TreeInformationAdapter.ViewHolder>() {
+class TreeInformationAdapter(items: ArrayList<DateInformationVO>): RecyclerView.Adapter<TreeInformationAdapter.ViewHolder>() {
 
-    var items: ArrayList<dateInformationVO> ?= null
+    var items: ArrayList<DateInformationVO> ?= null
     var viewHolder: ViewHolder? = null
 
     init {

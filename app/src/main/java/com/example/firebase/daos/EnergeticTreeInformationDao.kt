@@ -12,6 +12,11 @@ interface TreeInformationDao {
     @Update
     fun update(vararg treeInformation: TreeInformationEntity)
 
+    /*@Query(" DELETE " + TreeInformationEntity.DATE +
+            " FROM " + TreeInformationEntity.TABLE_NAME +
+            " WHERE " + TreeInformationEntity.POWER + " =:dateId")
+    fun deleteDate(dateId: Float?)*/
+
     @Delete
     fun delete(vararg treeInformation: TreeInformationEntity)
 

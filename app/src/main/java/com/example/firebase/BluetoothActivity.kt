@@ -11,7 +11,6 @@ import android.os.Handler
 import android.text.TextUtils
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.MediaController
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
@@ -19,8 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebase.adapters.TreeInformationAdapter
-import com.example.firebase.entities.TreeInformationEntity
-import com.example.firebase.valueobjects.dateInformationVO
+import com.example.firebase.valueobjects.DateInformationVO
 import com.example.firebase.viewmodel.TreeInformationViewModel
 import kotlinx.android.synthetic.main.activity_device_list.*
 import java.io.IOException
@@ -31,11 +29,14 @@ import kotlin.collections.ArrayList
 
 class BluetoothActivity : AppCompatActivity() {
 
+    //Variable de sincronizacion con el microcontroldaor
+    private var isTranfering = false
+
     //Variable para reproducir el video
     private lateinit var videoTree: VideoView
 
     //Informacion en la base de datos
-    var dateInfoBD: ArrayList<dateInformationVO> ?= ArrayList()
+    var dateInfoBD: ArrayList<DateInformationVO> ?= ArrayList()
     //Adapter
     private var adapterInformationDates: TreeInformationAdapter ?= null
     private var recyclerDateInfBD: RecyclerView ?= null
@@ -57,14 +58,13 @@ class BluetoothActivity : AppCompatActivity() {
     internal val handlerState = 0                         //used to identify handler message
     private var firstTime = true
 
-    private val recDataString = StringBuilder()
+    private var recDataString = StringBuilder()
 
     inner class ConnectedThread : Thread(){
         private var mmInStream: InputStream? = null
         private var mmOutStream: OutputStream? = null
 
         //creation of the connect thread
-
         fun connectedThread(socket: BluetoothSocket) {
             var tmpIn: InputStream? = null
             var tmpOut: OutputStream? = null
@@ -72,7 +72,7 @@ class BluetoothActivity : AppCompatActivity() {
                 //Create I/O streams for connection
                 tmpIn = socket.inputStream
                 tmpOut = socket.outputStream
-            } catch (ignored: IOException) {}
+            } catch (ignored: Throwable) {}
             mmInStream = tmpIn
             mmOutStream = tmpOut
         }
@@ -96,7 +96,11 @@ class BluetoothActivity : AppCompatActivity() {
         fun write(input: String) {
             val msgBuffer = input.toByteArray()           //converts entered String into bytes
             try {
-                mmOutStream!!.write(msgBuffer)                //write bytes over BT connection via outstream
+                msgBuffer.forEach {
+                    Handler().postDelayed({mmOutStream!!.write(it.toInt())},1)
+                }
+                Handler().postDelayed({mmOutStream!!.write(254)},1)
+                //mmOutStream!!.write(msgBuffer)                //write bytes over BT connection via outstream
             } catch (e: IOException) {
                 //if you cannot write, close the application
                 Toast.makeText(baseContext, "La Conexión fallo", Toast.LENGTH_LONG).show()
@@ -115,13 +119,14 @@ class BluetoothActivity : AppCompatActivity() {
             ViewModelProviders.of(this).get(TreeInformationViewModel::class.java)
         }
         //addTreeInformation()
-        Handler().postDelayed({ addObserver()},1000)
+        Handler().postDelayed({ addObserver()},100)
         //SqlLite End
 
         initButons()
         initBTReciberListener()
         initVideo()
     }
+
     private fun initVideo(){
         videoTree = videoView
         val path = Uri.parse("android.resource://" + this.baseContext.packageName + "/" + R.raw.video)
@@ -138,37 +143,42 @@ class BluetoothActivity : AppCompatActivity() {
                 override fun handleMessage(msg: android.os.Message) {
                     if (msg.what == handlerState) {                        //if message is what we want
                         val readMessage = msg.obj as String                // msg.arg1 = bytes from connect thread
-                        recDataString.append(readMessage)                  //keep appending to string until ~
-                        val bar = recDataString.toString().split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                        if (bar.size >= 11 && bar[10].length > 13) {
-                            if(firstTime) {
-                                relativeCharging.visibility = View.GONE
-                                relativeInformation.visibility = View.VISIBLE
-                                videoTree.stopPlayback()
-                                firstTime = false
+                        if(readMessage == "#") isTranfering = true
+                        if(isTranfering) recDataString.append(readMessage)                  //keep appending to string until ~
+                        if(readMessage == "~") {
+                            val information = recDataString.toString().replace("#", "")
+                            //recDataString.toString().replace("~", "")
+                            val bar = information.split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                            if (bar.size >= 11 && bar[10].length > 13) {
+                                isTranfering = false
+                                if (firstTime) {
+                                    relativeCharging.visibility = View.GONE
+                                    relativeInformation.visibility = View.VISIBLE
+                                    videoTree.stopPlayback()
+                                    firstTime = false
+                                }
+                                adc1.text = bar[0]
+                                adc2.text = bar[1]
+                                adc3.text = bar[2]
+                                adc4.text = bar[3]
+                                adc5.text = bar[4]
+                                adc6.text = bar[5]
+                                adc7.text = bar[6]
+                                adc8.text = bar[7]
+                                eeprom.text = bar[8]
+                                rtcHour.text = bar[9]
+                                if (rtcDate.text.toString() != bar[10]) {
+                                    rtcDate.text = bar[10]
+                                }
+                            } else if (bar.size == 1 && bar[0] != "" && bar[0] != "\r") {
+                                val rep = bar[0].replace("#", "")
+                                isTranfering = false
+                                Toast.makeText(this@BluetoothActivity, rep.replace("~", ""), Toast.LENGTH_SHORT).show()
                             }
-                            adc1.text = bar[0]
-                            adc2.text = bar[1]
-                            adc3.text = bar[2]
-                            adc4.text = bar[3]
-                            adc5.text = bar[4]
-                            adc6.text = bar[5]
-                            adc7.text = bar[6]
-                            adc8.text = bar[7]
-                            eeprom.text = bar[8]
-                            rtcHour.text = bar[9]
-                            if (rtcDate.text.toString() != bar[10]) {
-                                rtcDate.text = bar[10]
+                            if (recDataString.indexOf("~") > 0) {                                           // make sure there data before ~
+                                testView1.text = "Tamaño del String = ${recDataString.length}"
+                                recDataString.delete(0, recDataString.length)                 //clear all string data
                             }
-                        }else if(bar.size == 1 && bar[0] != "" && bar[0] != "\r"){
-                            Toast.makeText(this@BluetoothActivity, bar[0], Toast.LENGTH_SHORT).show()
-                        }
-                        val endOfLineIndex = recDataString.indexOf("~")                    // determine the end-of-line
-                        if (endOfLineIndex > 0) {                                           // make sure there data before ~
-                            val dataInPrint = recDataString.substring(0, endOfLineIndex)// extract string
-                            val dataLength = dataInPrint.length                            //get length of data received
-                            testView1.text = "Tamaño del String = $dataLength"
-                            recDataString.delete(0, recDataString.length)                //clear all string data
                         }
                     }
                 }
@@ -188,11 +198,9 @@ class BluetoothActivity : AppCompatActivity() {
         }
         buttonOn.setOnClickListener {
             mConnectedThread!!.write("12345")
-            Toast.makeText(baseContext, "12345", Toast.LENGTH_SHORT).show()
         }
         buttonOff.setOnClickListener {
-            mConnectedThread!!.write("BRAYAN")
-            Toast.makeText(baseContext, "BRAYAN", Toast.LENGTH_SHORT).show()
+            mConnectedThread!!.write("BFCalderon")
         }
     }
 
@@ -223,7 +231,7 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
+    override fun onStart() {sendBtn
         super.onStart()
         conectBluetoothManager()
     }
@@ -273,7 +281,7 @@ class BluetoothActivity : AppCompatActivity() {
     }
 
     private fun addObserver() {
-        treeInformationViewModel.getAllDateInformation().observe(this, androidx.lifecycle.Observer<List<dateInformationVO>>{dateInf ->
+        treeInformationViewModel.getAllDateInformation().observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->
             dateInfoBD!!.clear()
             dateInf.forEach {
                 dateInfoBD!!.add(it)
@@ -284,7 +292,7 @@ class BluetoothActivity : AppCompatActivity() {
 
     private fun addTreeInformation() {
         for(i in 1..10)
-        treeInformationViewModel.saveTreeInformation(TreeInformationEntity("${i+1}/08/2019","$i:19",i*10.5498f))
+        treeInformationViewModel.saveTreeInformation(DateInformationVO("${i+1}/08/2019","$i:19",i*10.5498f))
     }
 }
 
