@@ -32,6 +32,7 @@ class BluetoothActivity : AppCompatActivity() {
 
     //Variable de sincronizacion con el microcontroldaor
     private var isTranfering = false
+    var blink = false
 
     //Variable para reproducir el video
     private lateinit var videoTree: VideoView
@@ -145,6 +146,9 @@ class BluetoothActivity : AppCompatActivity() {
             object : Handler() {
                 override fun handleMessage(msg: android.os.Message) {
                     if (msg.what == handlerState) {                        //if message is what we want
+                        blink = blink != true
+                        transfer.visibility  = if(blink) View.VISIBLE else View.INVISIBLE
+                        transfer1.visibility  = if(blink) View.VISIBLE else View.INVISIBLE
                         val readMessage = msg.obj as String                // msg.arg1 = bytes from connect thread
                         if(readMessage == "#") isTranfering = true
                         if(isTranfering) recDataString.append(readMessage)                  //keep appending to string until ~
