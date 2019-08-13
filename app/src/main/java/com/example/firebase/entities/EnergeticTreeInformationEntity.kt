@@ -16,8 +16,7 @@ data class TreeInformationEntity( @ColumnInfo(name = DATE)
                                   var power: Float? = null){
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = DATE_ID)
-    var dateId: Int = 0
+    @ColumnInfo(name = DATE_ID) var dateId: Int = 0
 
     companion object {
         const val TABLE_NAME = "TREE_INFORMATION"
