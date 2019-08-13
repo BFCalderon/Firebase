@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.firebase.adapters.TreeInformationAdapter
 import com.example.firebase.valueobjects.DateInformationVO
 import com.example.firebase.viewmodel.TreeInformationViewModel
+import com.facebook.stetho.Stetho
 import kotlinx.android.synthetic.main.activity_device_list.*
 import java.io.IOException
 import java.io.InputStream
@@ -114,6 +115,8 @@ class BluetoothActivity : AppCompatActivity() {
         setContentView(R.layout.activity_device_list)
         linearConecting.visibility = View.VISIBLE
 
+        Stetho.initializeWithDefaults(this)
+
         //SqlLite Start
         treeInformationViewModel = run {
             ViewModelProviders.of(this).get(TreeInformationViewModel::class.java)
@@ -149,14 +152,14 @@ class BluetoothActivity : AppCompatActivity() {
                             val information = recDataString.toString().replace("#", "")
                             //recDataString.toString().replace("~", "")
                             val bar = information.split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                            if (bar.size >= 11 && bar[10].length > 13) {
+                            if (bar.size >= 11 && bar[10].length >= 13) {
                                 isTranfering = false
                                 if (firstTime) {
-                                    relativeCharging.visibility = View.GONE
-                                    relativeInformation.visibility = View.VISIBLE
                                     videoTree.stopPlayback()
                                     firstTime = false
                                 }
+                                relativeCharging.visibility = View.GONE
+                                relativeInformation.visibility = View.VISIBLE
                                 adc1.text = bar[0]
                                 adc2.text = bar[1]
                                 adc3.text = bar[2]
@@ -175,6 +178,7 @@ class BluetoothActivity : AppCompatActivity() {
                                 isTranfering = false
                                 Toast.makeText(this@BluetoothActivity, rep.replace("~", ""), Toast.LENGTH_SHORT).show()
                             }
+                            recDataString.delete(0, recDataString.length)
                             if (recDataString.indexOf("~") > 0) {                                           // make sure there data before ~
                                 testView1.text = "Tamaño del String = ${recDataString.length}"
                                 recDataString.delete(0, recDataString.length)                 //clear all string data
