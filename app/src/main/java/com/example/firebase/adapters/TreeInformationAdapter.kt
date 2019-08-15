@@ -30,9 +30,9 @@ class TreeInformationAdapter(items: ArrayList<DateInformationVO>): RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items?.get(position)
-        holder.textDate.text = item?.date
-        holder.textHour.text = item?.hour
-        holder.textPower.text = item?.power.toString()
+        holder.textDate.text = item?.date.toString()
+        holder.textHour.text = item?.power.toString()
+        holder.textPower.text = item?.efficiency.toString()
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){

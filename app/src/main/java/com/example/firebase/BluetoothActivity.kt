@@ -289,7 +289,7 @@ class BluetoothActivity : AppCompatActivity() {
     }
 
     private fun addObserver() {
-        treeInformationViewModel.getAllDateInformation().observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->
+        treeInformationViewModel.getAllHoursInformation().observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->
             dateInfoBD!!.clear()
             dateInf.forEach {
                 dateInfoBD!!.add(it)
@@ -299,8 +299,15 @@ class BluetoothActivity : AppCompatActivity() {
     }
 
     private fun addTreeInformation() {
-        for(i in 1..10)
-        treeInformationViewModel.saveTreeInformation(DateInformationVO("${i+1}/08/2019","$i:19",i*10.5498f))
+        //for(i in 1..10){}
+        //treeInformationViewModel.saveTreeInformation(DateInformationVO("${i+1}/08/2019","$i:19",i*10.5498f))
+
+        for(i in 2019..2028) treeInformationViewModel.saveYearInformation(DateInformationVO(i,i*0.7f,i*10.5498f))
+
+        for(i in 10..19) treeInformationViewModel.saveMonthInformation(DateInformationVO("$i",i*0.3f,i*5.9731f))
+
+        for(i in 1..9) treeInformationViewModel.saveDaysInformation(DateInformationVO(i,i*0.57f,i*15.546f))
+
+        for(i in 75..84) treeInformationViewModel.saveHoursInformation(DateInformationVO(i,i*5.23333f,i*0.985f))
     }
 }
-

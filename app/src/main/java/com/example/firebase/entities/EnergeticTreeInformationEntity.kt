@@ -7,13 +7,13 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = TreeInformationEntity.TABLE_NAME)
 data class TreeInformationEntity( @ColumnInfo(name = DATE)
-                                  var date: String?,
+                                  var date: Int?,
 
                                   @ColumnInfo(name = HOUR)
-                                  var hour: String?,
+                                  var power: Float?,
 
                                   @ColumnInfo(name = POWER)
-                                  var power: Float? = null){
+                                  var efficiency: Float? = null){
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = DATE_ID) var dateId: Int = 0

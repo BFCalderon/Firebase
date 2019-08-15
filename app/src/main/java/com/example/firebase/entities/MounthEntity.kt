@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = MonthEntity.TABLE_NAME)
-data class MonthEntity(@ColumnInfo(name = MONTH) var month: Int?,
+data class MonthEntity(@ColumnInfo(name = MONTH) var monthEntity: String?,
                        @ColumnInfo(name = POWER) var power: Float?,
                        @ColumnInfo(name = EFFICIENCY) var efficiency: Float?){
 

@@ -2,7 +2,6 @@ package com.example.firebase.datatransferobjects
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import java.lang.reflect.Array
 
 abstract class GenericDataTransferObject<E, O> {
 

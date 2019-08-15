@@ -2,15 +2,19 @@ package com.example.firebase.valueobjects
 
 class DateInformationVO {
 
-    var date: String? = null
-    var hour: String? = null
+    var date: Int? = null
+    var month: String? = null
     var power: Float? = null
+    var efficiency: Float? = null
 
-    constructor(date: String?, hour: String?, power: Float?){
+    constructor(date: Int?, power: Float?, efficiency: Float?){
         this.date = date
-        this.hour = hour
         this.power = power
+        this.efficiency = efficiency
     }
-
-    constructor()
+    constructor(month: String?, power: Float?, efficiency: Float?){
+        this.month = month
+        this.power = power
+        this.efficiency = efficiency
+    }
 }
