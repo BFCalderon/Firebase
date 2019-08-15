@@ -4,15 +4,27 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.firebase.daos.TreeInformationDao
-import com.example.firebase.entities.TreeInformationEntity
+import com.example.firebase.daos.*
+import com.example.firebase.entities.*
 
-@Database(entities = [TreeInformationEntity::class], version = 1)
+@Database(entities = [
+    TreeInformationEntity::class,
+    DayEntity::class,
+    HourEntity::class,
+    YearEntity::class,
+    MonthEntity::class
+], version = 1)
 abstract class TreeInformationRoom : RoomDatabase() {
-    abstract fun TreeInformationDao(): TreeInformationDao
+
+    abstract fun treeInformationDao(): TreeInformationDao
+    abstract fun yearDao(): YearDao
+    abstract fun monthDao(): MonthDao
+    abstract fun dayDao(): DayDao
+    abstract fun hourDao(): HourDao
+
 
     companion object {
-        private const val DATABASE_NAME = "score_database"
+        private const val DATABASE_NAME = "ARBOL_ENERGETICO"
         @Volatile
         private var INSTANCE: TreeInformationRoom? = null
 
@@ -28,3 +40,4 @@ abstract class TreeInformationRoom : RoomDatabase() {
         }
     }
 }
+
