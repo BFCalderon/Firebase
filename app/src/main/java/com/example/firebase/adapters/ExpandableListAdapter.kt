@@ -2,6 +2,7 @@ package com.tutorialwing.expandablelistview
 
 import android.content.Context
 import android.graphics.Typeface
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +15,8 @@ import java.util.HashMap
 
 class ExpandableListAdapter internal constructor(private val context: Context, private val titleList: List<DateInformationVO>, private val dataList: HashMap<DateInformationVO, List<DateInformationVO>>) : BaseExpandableListAdapter() {
 
-    override fun getChild(listPosition: Int, expandedListPosition: Int): Any {
-        return this.dataList[this.titleList[listPosition]]!![expandedListPosition].month.toString()
+    override fun getChild(listPosition: Int, expandedListPosition: Int): DateInformationVO {
+        return this.dataList[this.titleList[listPosition]]!![expandedListPosition]
     }
 
     override fun getChildId(listPosition: Int, expandedListPosition: Int): Long {
@@ -24,13 +25,19 @@ class ExpandableListAdapter internal constructor(private val context: Context, p
 
     override fun getChildView(listPosition: Int, expandedListPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup): View {
         var convertView = convertView
-        val expandedListText = getChild(listPosition, expandedListPosition) as String
+        val expandedListText = getChild(listPosition, expandedListPosition)
         if (convertView == null) {
             val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.child_year_month, null)
         }
         val expandedListTextView = convertView!!.findViewById<TextView>(R.id.expandedListMonth)
-        expandedListTextView.text = expandedListText
+        //expandedListTextView.text = expandedListText.date
+        expandedListTextView.setTypeface(null, Typeface.BOLD)
+        expandedListTextView.post { expandedListTextView.text = Editable.Factory.getInstance().newEditable(expandedListText.month) }
+
+        val expandedListTextViewPower = convertView!!.findViewById<TextView>(R.id.powerTextYear)
+        expandedListTextViewPower.setTypeface(null, Typeface.BOLD)
+        expandedListTextViewPower.post { expandedListTextViewPower.text = Editable.Factory.getInstance().newEditable(expandedListText.power.toString()) }
         return convertView
     }
 
@@ -38,8 +45,8 @@ class ExpandableListAdapter internal constructor(private val context: Context, p
         return this.dataList[this.titleList[listPosition]]!!.size
     }
 
-    override fun getGroup(listPosition: Int): Any {
-        return this.titleList[listPosition].date.toString()
+    override fun getGroup(listPosition: Int): DateInformationVO {
+        return this.titleList[listPosition]
     }
 
     override fun getGroupCount(): Int {
@@ -52,14 +59,16 @@ class ExpandableListAdapter internal constructor(private val context: Context, p
 
     override fun getGroupView(listPosition: Int, isExpanded: Boolean, convertView: View?, parent: ViewGroup): View {
         var convertView = convertView
-        val listTitle = getGroup(listPosition) as String
+        val listTitle = getGroup(listPosition)
         if (convertView == null) {
             val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.parent_year_month, null)
         }
         val listTitleTextView = convertView!!.findViewById<TextView>(R.id.listTitleYear)
         listTitleTextView.setTypeface(null, Typeface.BOLD)
-        listTitleTextView.text = listTitle
+        listTitleTextView.post { listTitleTextView.text = Editable.Factory.getInstance().newEditable((listTitle.date.toString())) }
+        //listTitleTextView.text = listTitle
+
         return convertView
     }
 
