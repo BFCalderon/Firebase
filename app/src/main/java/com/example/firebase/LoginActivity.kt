@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
         alertDialog.setMessage("Los datos no se enviaran al servidor. ¿Desea continuar?")
 
         alertDialog.setPositiveButton("SI") { _, _ ->
-            startActivity(Intent(this, BluetoothActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
         alertDialog.setNegativeButton("NO") { _, _ ->
             Toast.makeText(this, "SI NO TIENE UN CUENTA POR FAVOR REGISTRESE!", Toast.LENGTH_LONG).show()
