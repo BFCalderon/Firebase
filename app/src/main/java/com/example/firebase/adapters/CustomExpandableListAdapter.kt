@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
-import android.widget.Toast
 import com.example.firebase.R
 
 import java.util.HashMap
@@ -27,9 +26,9 @@ class CustomExpandableListAdapter internal constructor(private val context: Cont
         val expandedListText = getChild(listPosition, expandedListPosition) as String
         if (convertView == null) {
             val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = layoutInflater.inflate(R.layout.list_item, null)
+            convertView = layoutInflater.inflate(R.layout.child_year_month, null)
         }
-        val expandedListTextView = convertView!!.findViewById<TextView>(R.id.expandedListItem)
+        val expandedListTextView = convertView!!.findViewById<TextView>(R.id.expandedListMonth)
         expandedListTextView.text = expandedListText
         return convertView
     }
@@ -55,9 +54,9 @@ class CustomExpandableListAdapter internal constructor(private val context: Cont
         val listTitle = getGroup(listPosition) as String
         if (convertView == null) {
             val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = layoutInflater.inflate(R.layout.list_group, null)
+            convertView = layoutInflater.inflate(R.layout.parent_year_month, null)
         }
-        val listTitleTextView = convertView!!.findViewById<TextView>(R.id.listTitle)
+        val listTitleTextView = convertView!!.findViewById<TextView>(R.id.listTitleYear)
         listTitleTextView.setTypeface(null, Typeface.BOLD)
         listTitleTextView.text = listTitle
         return convertView

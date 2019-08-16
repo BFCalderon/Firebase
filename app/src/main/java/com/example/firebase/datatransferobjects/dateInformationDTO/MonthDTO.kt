@@ -9,7 +9,7 @@ object MonthDTO: GenericDataTransferObject<MonthEntity, DateInformationVO>() {
 
     override fun dataToObject(entity: MonthEntity): DateInformationVO {
         return DateInformationVO(
-            entity.monthId,
+            entity.monthEntity,
             entity.power,
             entity.efficiency)
     }
