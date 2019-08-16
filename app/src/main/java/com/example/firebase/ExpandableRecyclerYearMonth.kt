@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.example.firebase.valueobjects.DateInformationVO
 import com.example.firebase.viewmodel.TreeInformationViewModel
-import com.tutorialwing.expandablelistview.CustomExpandableListAdapter
-import java.lang.reflect.Array
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -21,9 +19,9 @@ class ExpandableRecyclerYearMonth : AppCompatActivity() {
 
     internal var expandableListView: ExpandableListView? = null
     internal var adapter: ExpandableListAdapter? = null
-    internal var titleList: List<String> ? = null
+    internal var titleList: List<DateInformationVO> ? = null
 
-    lateinit var data: HashMap<String, List<String>>
+    lateinit var data: HashMap<DateInformationVO, List<DateInformationVO>>
         //get() {
 
         //}
@@ -44,23 +42,24 @@ class ExpandableRecyclerYearMonth : AppCompatActivity() {
         expandableListView = findViewById(R.id.expandableListView)
         if (expandableListView != null) {
             titleList = ArrayList(data.keys)
-            adapter = CustomExpandableListAdapter(this, titleList as ArrayList<String>, data)
+            adapter =
+                com.tutorialwing.expandablelistview.ExpandableListAdapter(this, titleList as ArrayList<DateInformationVO>, data)
             expandableListView!!.setAdapter(adapter)
 
-            expandableListView!!.setOnGroupExpandListener {
+            /*expandableListView!!.setOnGroupExpandListener {
                     groupPosition -> Toast.makeText(applicationContext, (titleList as ArrayList<String>)[groupPosition] + " List Expanded.", Toast.LENGTH_SHORT).show()
-            }
+            }*/
 
-            expandableListView!!.setOnGroupCollapseListener { groupPosition ->
+            /*expandableListView!!.setOnGroupCollapseListener { groupPosition ->
                 Toast.makeText(applicationContext, (titleList as ArrayList<String>)[groupPosition] + " List Collapsed.", Toast.LENGTH_SHORT).show()
-            }
+            }*/
 
-            expandableListView!!.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
+            /*expandableListView!!.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
                 Toast.makeText(applicationContext, "Clicked: " + (titleList as ArrayList<String>)[groupPosition]
-                        + " -> " + data[(titleList as ArrayList<String>)[groupPosition]]!!.get(childPosition),
+                        + " -> " + data[(titleList as ArrayList<DateInformationVO>)[groupPosition]]!!.get(childPosition),
                     Toast.LENGTH_SHORT).show()
                 false
-            }
+            }*/
         }
     }
 
@@ -80,15 +79,15 @@ class ExpandableRecyclerYearMonth : AppCompatActivity() {
     }
 
     private fun fillInf(year: ArrayList<DateInformationVO>, month: ArrayList<DateInformationVO>){//Llena la informacion que se mostrará en el recycler expandible
-        val listData = HashMap<String, List<String>>()
-        val listMonth: ArrayList<String> = ArrayList()
+        val listData = HashMap<DateInformationVO, List<DateInformationVO>>()
+        val listMonth: ArrayList<DateInformationVO> = ArrayList()
 
         month.forEach {
-            listMonth.add(it.month.toString())
+            listMonth.add(it)
         }
 
         year.forEach {year->
-            listData["${year.date}"] = listMonth as List<String>
+            listData[year] = listMonth as List<DateInformationVO>
         }
         data = listData
         fillExpListYearMonth()

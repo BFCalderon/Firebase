@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
 import com.example.firebase.R
+import com.example.firebase.valueobjects.DateInformationVO
 
 import java.util.HashMap
 
-class CustomExpandableListAdapter internal constructor(private val context: Context, private val titleList: List<String>, private val dataList: HashMap<String, List<String>>) : BaseExpandableListAdapter() {
+class ExpandableListAdapter internal constructor(private val context: Context, private val titleList: List<DateInformationVO>, private val dataList: HashMap<DateInformationVO, List<DateInformationVO>>) : BaseExpandableListAdapter() {
 
     override fun getChild(listPosition: Int, expandedListPosition: Int): Any {
-        return this.dataList[this.titleList[listPosition]]!![expandedListPosition]
+        return this.dataList[this.titleList[listPosition]]!![expandedListPosition].month.toString()
     }
 
     override fun getChildId(listPosition: Int, expandedListPosition: Int): Long {
@@ -38,7 +39,7 @@ class CustomExpandableListAdapter internal constructor(private val context: Cont
     }
 
     override fun getGroup(listPosition: Int): Any {
-        return this.titleList[listPosition]
+        return this.titleList[listPosition].date.toString()
     }
 
     override fun getGroupCount(): Int {
