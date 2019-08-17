@@ -12,7 +12,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ExpandableRecyclerYearMonth">
+        <activity android:name=".RecyclerExpandable">
         </activity>
         <activity
                 android:name=".LoginActivity"

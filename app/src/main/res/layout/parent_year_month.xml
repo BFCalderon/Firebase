@@ -22,7 +22,7 @@
 				android:layout_weight="1"/>
 
 		<TextView
-				android:id="@+id/powerTextYear"
+				android:id="@+id/powerText"
 				android:gravity="center"
 				android:text="120W"
 				android:layout_width="0dp"
@@ -38,17 +38,18 @@
 			android:layout_margin="5dp">
 
 		<ProgressBar
-				android:id="@+id/eficiencyBarYear"
+				android:id="@+id/eficiencyBarParent"
 				style="?android:attr/progressBarStyleHorizontal"
 				android:progress="80"
 				android:max="100"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="40dp"
-				android:layout_weight="0.87"/>
+				android:layout_weight="0.87"
+				android:progressTint="@color/colorPrimaryDark"/>
 
 		<TextView
-				android:id="@+id/eficiencyTextYear"
+				android:id="@+id/eficiencyText"
 				android:gravity="center"
 				android:text="80%"
 				android:layout_width="0dp"

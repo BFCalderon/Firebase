@@ -15,6 +15,6 @@ interface MonthDao {
     @Delete
     fun delete(vararg mounthInformation: MonthEntity)
 
-    @Query("SELECT * FROM " + MonthEntity.TABLE_NAME)
+    @Query("SELECT * FROM " + MonthEntity.TABLE_NAME +" ORDER BY MONTH")
     fun getMonths(): LiveData<List<MonthEntity>>
 }

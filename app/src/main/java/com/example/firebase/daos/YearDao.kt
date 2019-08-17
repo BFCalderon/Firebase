@@ -15,6 +15,6 @@ interface YearDao {
     @Delete
     fun delete(vararg yearInformation: YearEntity)
 
-    @Query("SELECT * FROM " + YearEntity.TABLE_NAME)
+    @Query("SELECT * FROM " + YearEntity.TABLE_NAME +" ORDER BY " + YearEntity.YEAR)
     fun getYears(): LiveData<List<YearEntity>>
 }

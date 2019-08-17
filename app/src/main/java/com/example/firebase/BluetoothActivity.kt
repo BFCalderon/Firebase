@@ -300,16 +300,20 @@ class BluetoothActivity : AppCompatActivity() {
         })
     }
 
+    private fun Random.nextInt(range: IntRange): Int {
+        return range.start + nextInt(range.last - range.start)
+    }
+
     private fun addTreeInformation() {
         //for(i in 1..10){}
         //treeInformationViewModel.saveTreeInformation(DateInformationVO("${i+1}/08/2019","$i:19",i*10.5498f))
 
-        for(i in 2019..2024) treeInformationViewModel.saveYearInformation(DateInformationVO(i,i*0.7f,i*10.5498f))
+        //for(i in 2019..2024) treeInformationViewModel.saveYearInformation(DateInformationVO(i,i*0.7f, Random().nextInt(0..100).toFloat()))
 
-        for(i in 0..11) treeInformationViewModel.saveMonthInformation(DateInformationVO(meses[i],i*0.3f,i*5.9731f))
+        //for(i in 0..11) treeInformationViewModel.saveMonthInformation(DateInformationVO(meses[i],i*0.3f, Random().nextInt(0..100).toFloat()))
 
-        //for(i in 1..9) treeInformationViewModel.saveDaysInformation(DateInformationVO(i,i*0.57f,i*15.546f))
+        for(i in 1..31) treeInformationViewModel.saveDaysInformation(DateInformationVO(i,Random().nextInt(0..50).toFloat(), Random().nextInt(0..100).toFloat()))
 
-        //for(i in 75..84) treeInformationViewModel.saveHoursInformation(DateInformationVO(i,i*5.23333f,i*0.985f))
+        for(i in 0..24) treeInformationViewModel.saveHoursInformation(DateInformationVO(i,Random().nextInt(0..50).toFloat(), Random().nextInt(0..100).toFloat()))
     }
 }

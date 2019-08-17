@@ -15,6 +15,6 @@ interface HourDao {
     @Delete
     fun delete(vararg hourInformation: HourEntity)
 
-    @Query("SELECT * FROM " + HourEntity.TABLE_NAME)
+    @Query("SELECT * FROM " + HourEntity.TABLE_NAME +" ORDER BY HOUR")
     fun getHours(): LiveData<List<HourEntity>>
 }
