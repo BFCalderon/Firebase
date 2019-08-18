@@ -16,7 +16,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var dbReference: DatabaseReference
     private lateinit var database: FirebaseDatabase
-    lateinit var auth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +24,7 @@ class RegisterActivity : AppCompatActivity() {
 
         database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
-        dbReference = database.reference.child("USUARIOS")
+        dbReference = database.reference.child("APELLIDO").child("APELLIDO")
     }
 
     fun buttonRegister(view: View){
@@ -45,10 +45,9 @@ class RegisterActivity : AppCompatActivity() {
             Toast.makeText(this, "La contraseña debe tener minimo 6 caracteres", Toast.LENGTH_SHORT).show()
         }else {
 
-            if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(lastName) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(
-                    password
-                )
-            ) {
+            if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(lastName)
+                && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+
                 progresVar.visibility = View.VISIBLE
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                     if (task.isComplete) {
