@@ -179,6 +179,8 @@ class LoginActivity : AppCompatActivity() {
                 }
                 yearsInFirebase.forEach {
                     treeInformationViewModel.saveYearInformation(it)
+                    treeInformationViewModel.deleteYearInformation(2019)
+
                 }
                 monthsInFirebase.forEach {
                     treeInformationViewModel.saveMonthInformation(it)

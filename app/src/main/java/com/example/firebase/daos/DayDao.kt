@@ -12,6 +12,9 @@ interface DayDao {
     @Update
     fun update(vararg dayInformation: DayEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrUpdateRow(dayInformation: DayEntity)
+
     @Delete
     fun delete(vararg dayInformation: DayEntity)
 

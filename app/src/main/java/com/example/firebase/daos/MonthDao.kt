@@ -11,25 +11,14 @@ interface MonthDao {
     @Insert
     fun insert(mounthInformation: MonthEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrUpdateRow(dayInformation: MonthEntity)
+
     @Update
     fun update(vararg mounthInformation: MonthEntity)
 
     @Delete
     fun delete(vararg mounthInformation: MonthEntity)
-
-   /* @Query(" SELECT " + MonthEntity.MONTH +
-                " FROM " + MonthEntity.TABLE_NAME +
-                " WHERE " + YearEntity.YEAR_ID + " = " + MonthEntity.MONTH_ID + " AND " + YearEntity.YEAR_ID + " :=year")
-    fun getMonth(year: Int): LiveData<List<MonthEntity>>*/
-
-    /*@Query("SELECT " + MonthEntity.MONTH_ID + " AS monthId," +
-            "(SELECT " + YearEntity.YEAR_ID +
-            " FROM " + YearEntity.TABLE_NAME +
-            " WHERE " + YearEntity.YEAR +"=: year) AS yearId" +
-            " FROM " + MonthEntity.TABLE_NAME +
-            " WHERE " + MonthEntity.MONTH_ID + " = yearId"
-    )
-    fun getMonth(year: Int): LiveData<List<MonthEntity>>*/
 
     @Query(
         "SELECT * " +

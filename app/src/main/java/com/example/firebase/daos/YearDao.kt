@@ -9,11 +9,16 @@ interface YearDao {
     @Insert
     fun insert(yearInformation: YearEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrUpdateRow(dayInformation: YearEntity)
+
     @Update
     fun update(vararg yearInformation: YearEntity)
-
-    @Delete
-    fun delete(vararg yearInformation: YearEntity)
+    //"DELETE FROM VEHICLE WHERE VEHICLE_ID =?"
+    @Query(
+        "DELETE FROM " + YearEntity.TABLE_NAME + " WHERE " + YearEntity.YEAR + " =:year"
+    )
+    fun delete(vararg year: Int)
 
     @Query("SELECT * FROM " + YearEntity.TABLE_NAME +" ORDER BY " + YearEntity.YEAR)
     fun getYears(): LiveData<List<YearEntity>>

@@ -28,7 +28,7 @@ class TreeInformationRepository(application: Application) {
         AsyncTask<TreeInformationEntity, Void, Void>() {
         override fun doInBackground(vararg treeInformations: TreeInformationEntity?): Void? {
             for (treeInformation in treeInformations) {
-                if (treeInformation != null) treeInformationDao.insert(treeInformation)
+                if (treeInformation != null) treeInformationDao.insertOrUpdateRow(treeInformation)
             }
             return null
         }
@@ -36,7 +36,7 @@ class TreeInformationRepository(application: Application) {
     //Generica funcional END
 
     //YEAR START
-    fun getYear(): LiveData<List<DateInformationVO>> {
+    fun getYears(): LiveData<List<DateInformationVO>> {
         return YearDTO.getInformationDate(yearDao!!.getYears())
     }
     fun insertYear(yearformation: DateInformationVO) {
@@ -46,7 +46,19 @@ class TreeInformationRepository(application: Application) {
         AsyncTask<YearEntity, Void, Void>() {
         override fun doInBackground(vararg yearformations: YearEntity?): Void? {
             for (yearformation in yearformations) {
-                if (yearformation != null) yearDao.insert(yearformation)
+                if (yearformation != null) yearDao.insertOrUpdateRow(yearformation)
+            }
+            return null
+        }
+    }
+    fun deleteYear(year: Int) {
+        if (yearDao != null) ADeleteYearAsyncTask(yearDao).execute(year)
+    }
+    private class ADeleteYearAsyncTask(private val yearDao: YearDao) :
+        AsyncTask<Int, Void, Void>() {
+        override fun doInBackground(vararg year: Int?): Void? {
+            for (yearformation in year) {
+                if (yearformation != null) yearDao.delete(yearformation)
             }
             return null
         }
@@ -67,7 +79,7 @@ class TreeInformationRepository(application: Application) {
         AsyncTask<MonthEntity, Void, Void>() {
         override fun doInBackground(vararg monthInformations: MonthEntity?): Void? {
             for (monthInformation in monthInformations) {
-                if (monthInformation != null) monthDao.insert(monthInformation)
+                if (monthInformation != null) monthDao.insertOrUpdateRow(monthInformation)
             }
             return null
         }
@@ -85,7 +97,7 @@ class TreeInformationRepository(application: Application) {
         AsyncTask<DayEntity, Void, Void>() {
         override fun doInBackground(vararg dayInformations: DayEntity?): Void? {
             for (dayInformation in dayInformations) {
-                if (dayInformation != null) dayDao.insert(dayInformation)
+                if (dayInformation != null) dayDao.insertOrUpdateRow(dayInformation)
             }
             return null
         }
@@ -103,7 +115,7 @@ class TreeInformationRepository(application: Application) {
         AsyncTask<HourEntity, Void, Void>() {
         override fun doInBackground(vararg hourInformations: HourEntity?): Void? {
             for (dayInformation in hourInformations) {
-                if (dayInformation != null) hourDao.insert(dayInformation)
+                if (dayInformation != null) hourDao.insertOrUpdateRow(dayInformation)
             }
             return null
         }

@@ -92,13 +92,6 @@ class RecyclerExpandable : AppCompatActivity() {
                     fillInf(infArrayYear, infArrayMonth)
                 })
         }
-
-        /*treeInformationViewModel.getMonthsPerYear(2019)
-            .observe(this, androidx.lifecycle.Observer<List<DateInformationVO>> { dateInf ->
-                infArrayMonth = dateInf as ArrayList<DateInformationVO>
-                fillInf(infArrayYear, infArrayMonth)
-            })*/
-
     }
 
     private fun fillInf(parent: ArrayList<DateInformationVO>, child: ArrayList<DateInformationVO>){//Llena la informacion que se mostrará en el recycler expandible

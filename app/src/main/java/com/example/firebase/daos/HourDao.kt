@@ -9,6 +9,9 @@ interface HourDao {
     @Insert
     fun insert(hourInformation: HourEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrUpdateRow(dayInformation: HourEntity)
+
     @Update
     fun update(vararg hourInformation: HourEntity)
 

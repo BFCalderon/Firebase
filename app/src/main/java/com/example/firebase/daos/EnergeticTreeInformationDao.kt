@@ -6,8 +6,11 @@ import com.example.firebase.entities.TreeInformationEntity
 
 @Dao
 interface TreeInformationDao {
-    @Insert
-    fun insert(treeInformation: TreeInformationEntity)
+    /*@Insert
+    fun insert(treeInformation: TreeInformationEntity)*/
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrUpdateRow(dayInformation: TreeInformationEntity)
 
     @Update
     fun update(vararg treeInformation: TreeInformationEntity)

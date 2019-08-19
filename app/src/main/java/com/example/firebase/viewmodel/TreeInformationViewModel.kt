@@ -13,9 +13,12 @@ class TreeInformationViewModel(application: Application) : AndroidViewModel(appl
         repository.insert(treeInformation)
     }
 
-    fun getAllYearInformation() = repository.getYear()
+    fun getAllYearInformation() = repository.getYears()
     fun saveYearInformation(yearInformation: DateInformationVO) {
         repository.insertYear(yearInformation)
+    }
+    fun deleteYearInformation(year: Int) {
+        repository.deleteYear(year)
     }
 
     fun getAllMonthInformation(/*year: Int*/) = repository.getMonth()
