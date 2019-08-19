@@ -15,6 +15,6 @@ interface DayDao {
     @Delete
     fun delete(vararg dayInformation: DayEntity)
 
-    @Query("SELECT * FROM " + DayEntity.TABLE_NAME +" ORDER BY DAY")
+    @Query("SELECT * FROM " + DayEntity.TABLE_NAME +" ORDER BY DAY_COLUM")
     fun getDays(): LiveData<List<DayEntity>>
 }

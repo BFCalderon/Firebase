@@ -18,6 +18,8 @@ object HourDTO: GenericDataTransferObject<HourEntity, DateInformationVO>() {
     override fun objectToData(objectVO: DateInformationVO): HourEntity {
         return HourEntity(
             objectVO.foreingKey,
+            objectVO.foreingKey1,
+            objectVO.foreingKey2,
             objectVO.date,
             objectVO.power!!,
             objectVO.efficiency

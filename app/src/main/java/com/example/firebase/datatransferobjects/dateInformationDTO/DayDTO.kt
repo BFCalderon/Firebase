@@ -17,6 +17,7 @@ object DayDTO: GenericDataTransferObject<DayEntity, DateInformationVO>() {
     override fun objectToData(objectVO: DateInformationVO): DayEntity {
         return DayEntity(
             objectVO.foreingKey,
+            objectVO.foreingKey1,
             objectVO.date,
             objectVO.power!!,
             objectVO.efficiency

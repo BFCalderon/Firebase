@@ -55,7 +55,10 @@ class TreeInformationRepository(application: Application) {
 
     //MONTH START
     fun getMonth(): LiveData<List<DateInformationVO>> {
-        return MonthDTO.getInformationDate(monthDao!!.getMonths())
+        return MonthDTO.getInformationDate(monthDao!!.getMonth())
+    }
+    fun getMonths(year: Int): LiveData<List<DateInformationVO>>{
+        return MonthDTO.getMonths(monthDao!!.getMonths(year))
     }
     fun insertMont(monthInformation: DateInformationVO) {
         if (monthDao != null) AInsertMonthAsyncTask(monthDao).execute(MonthDTO.objectToData(monthInformation))

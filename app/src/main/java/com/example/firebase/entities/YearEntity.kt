@@ -15,9 +15,9 @@ data class YearEntity(
 
     companion object {
         const val TABLE_NAME = "YEAR"
-        const val YEAR_ID = "YEAR_ID"
-        const val YEAR = "YEAR"
-        const val POWER = "POWER"
-        const val EFFICIENCY = "EFFICIENCY"
+        const val YEAR_ID = "YEAR_ID_COLUM"
+        const val YEAR = "YEAR_COLUM"
+        const val POWER = "POWER_COLUM"
+        const val EFFICIENCY = "EFFICIENCY_COLUM"
     }
 }

@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = DayEntity.TABLE_NAME)
 data class DayEntity(@ColumnInfo(name = FOREING_KEY) var foreingKey: Int?,
+                     @ColumnInfo(name = FOREING_KEY_1) var foreingKey1: Int?,
                      @ColumnInfo(name = DAY) var day: Int?,
                      @ColumnInfo(name = POWER) var power: Float?,
                      @ColumnInfo(name = EFFICIENCY) var efficiency: Float?){
@@ -16,10 +17,11 @@ data class DayEntity(@ColumnInfo(name = FOREING_KEY) var foreingKey: Int?,
 
     companion object {
         const val TABLE_NAME = "DAY"
-        const val DAY_ID = "DAY_ID"
-        const val FOREING_KEY = "FEREING_HEY"
-        const val DAY = "DAY"
-        const val POWER = "POWER"
-        const val EFFICIENCY = "EFFICIENCY"
+        const val DAY_ID = "DAY_ID_COLUM"
+        const val FOREING_KEY = "FEREING_KEY_COLUM"
+        const val FOREING_KEY_1 = "FEREING_KEY_1_COLUM"
+        const val DAY = "DAY_COLUM"
+        const val POWER = "POWER_COLUM"
+        const val EFFICIENCY = "EFFICIENCY_COLUM"
     }
 }

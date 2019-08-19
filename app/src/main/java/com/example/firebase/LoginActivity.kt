@@ -7,6 +7,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
+import com.example.firebase.valueobjects.DateInformationVO
+import com.example.firebase.viewmodel.TreeInformationViewModel
+import com.facebook.stetho.Stetho
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_login.*
@@ -16,11 +20,16 @@ import kotlin.collections.HashMap
 
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var treeInformationViewModel: TreeInformationViewModel
+
     private val años = listOf("2019", "2020")
     private val meses = listOf("Enero", "Febrero", "Marzo"/*, "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"*/)
     //private val dias = listOf("Lunea", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo")
     private val dias = listOf(1,2,3/*,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30*/)
     private val horas = listOf(0,1,2/*,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23*/)
+
+    private var yearsFromFirebase: ArrayList<DateInformationVO> = ArrayList()
 
     private lateinit var auth: FirebaseAuth
 
@@ -36,6 +45,11 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         isLoguing()
         database = FirebaseDatabase.getInstance()
+
+        Stetho.initializeWithDefaults(this)
+        treeInformationViewModel = run {
+            ViewModelProviders.of(this).get(TreeInformationViewModel::class.java)
+        }
     }
     fun signin(view: View){
         loguinUser()
@@ -80,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) {task ->
                     if(task.isSuccessful) {
                         isLoguin = true
-                        updateDataInFirebase()
+                        //updateDataInFirebase()
                         readDataFromFirebase()
                     } else {
                         Toast.makeText(this, "ERROR DE AUTENTICACION", Toast.LENGTH_SHORT).show()
@@ -95,8 +109,6 @@ class LoginActivity : AppCompatActivity() {
     private fun updateDataInFirebase(){
         fun Random.nextInt(range: IntRange): Float {return range.start + nextInt(range.last - range.start).toFloat()}
 
-        /*val firebaseTreeInformationName = database.getReference("ARBOL ENERGETICO")
-        firebaseTreeInformationName.child("ARBOL ENERGETICO")*/
         años.forEach{años->
             val userBDmesAños = database.getReference("ARBOL ENERGETICO").child(años)
             userBDmesAños.child(años)
@@ -131,17 +143,32 @@ class LoginActivity : AppCompatActivity() {
                 val t = object : GenericTypeIndicator<Any>() {}
                 val jsonTreeInformation = dataSnapshot.getValue(t)
                 jsonTreeInformation as HashMap<*,*>
+                jsonTreeInformation.toString()
 
+                val yearsInFirebase: ArrayList<DateInformationVO> = ArrayList()
+                val monthsInFirebase: ArrayList<DateInformationVO> = ArrayList()
+                val daysInFirebase: ArrayList<DateInformationVO> = ArrayList()
+                val hourInFirebase: ArrayList<DateInformationVO> = ArrayList()
+                    var yearIterator = 0
                 for(keyYear in jsonTreeInformation){
-                    keyYear.key
+                    yearIterator++
+                    yearsInFirebase.add(DateInformationVO(date = keyYear.key.toString().toInt(), foreingKey = yearIterator,efficiency = 1.3f,power = 1.5f))
                     val year = keyYear.value as HashMap<*,*>
+                    var monthIterator = 0
                     for (keyMonth in year) {
-                        keyMonth.key
+                        monthIterator++
+                        monthsInFirebase.add(DateInformationVO(foreingKey = yearIterator, month = keyMonth.key.toString(), power = 2.6f,efficiency = 2.8f))
                         val month = keyMonth.value as ArrayList<ArrayList<HashMap<*, *>>>
+                        var daysIterator = 0
                         month.forEach { days ->
-                            if (days != null) {//Como los dias siempre son numeros mayores a 1, firebase retorna la posicion cero nula
-                                days.forEach { hours ->
-                                    for (keyHour in hours) {
+                            if (!days.isNullOrEmpty()) {//Como los dias siempre son numeros mayores a 1, firebase retorna la posicion cero nula
+                                daysIterator++
+                                daysInFirebase.add(DateInformationVO(foreingKey = monthIterator, foreingKey1 = yearIterator, date = daysIterator,efficiency = 3.9f,power = 3.3f))
+                                var hourIterator = 0
+                                days.forEach { hour ->
+                                    hourIterator++
+                                    hourInFirebase.add(DateInformationVO(foreingKey = daysIterator, foreingKey1 = monthIterator, foreingKey2 = yearIterator, date = hourIterator, power = hour.get("POTENCIA").toString().toFloat(), efficiency = hour.get("EFICIENCIA").toString().toFloat()))
+                                    for (keyHour in hour) {
                                         keyHour.key.toString()
                                         keyHour.value.toString()
                                     }
@@ -150,10 +177,20 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
                 }
+                yearsInFirebase.forEach {
+                    treeInformationViewModel.saveYearInformation(it)
+                }
+                monthsInFirebase.forEach {
+                    treeInformationViewModel.saveMonthInformation(it)
+                }
+                daysInFirebase.forEach {
+                    treeInformationViewModel.saveDaysInformation(it)
+                }
+                hourInFirebase.forEach {
+                    treeInformationViewModel.saveHoursInformation(it)
+                }
             }
-
             override fun onCancelled(error: DatabaseError){}
-
         })
     }
 }
