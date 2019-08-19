@@ -142,8 +142,8 @@ class LoginActivity : AppCompatActivity() {
                             if (days != null) {//Como los dias siempre son numeros mayores a 1, firebase retorna la posicion cero nula
                                 days.forEach { hours ->
                                     for (keyHour in hours) {
-                                        keyHour.key
-                                        keyHour.value
+                                        keyHour.key.toString()
+                                        keyHour.value.toString()
                                     }
                                 }
                             }
