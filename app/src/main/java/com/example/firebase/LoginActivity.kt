@@ -3,25 +3,24 @@ package com.example.firebase
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.firebase.math.MathUtility
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
+
 
 class LoginActivity : AppCompatActivity() {
-    private val años = listOf("2019")
-    private val meses = listOf("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
+    private val años = listOf("2019", "2020")
+    private val meses = listOf("Enero", "Febrero", "Marzo"/*, "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"*/)
     //private val dias = listOf("Lunea", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo")
-    private val dias = listOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30)
-    private val horas = listOf(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23)
+    private val dias = listOf(1,2,3/*,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30*/)
+    private val horas = listOf(0,1,2/*,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23*/)
 
     private lateinit var auth: FirebaseAuth
 
@@ -30,28 +29,13 @@ class LoginActivity : AppCompatActivity() {
 
     private var isLoguin = false
 
-    private var mathUtility: MathUtility? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         auth = FirebaseAuth.getInstance()
         isLoguing()
-
         database = FirebaseDatabase.getInstance()
-        myRef = database.getReference("USUARIOS").child("APELLIDO")
-        myRef//.child("APELLIDO")
-        /*val city = hashMapOf(
-            "name" to "Los Angeles",
-            "state" to "CA",
-            "country" to "USA"
-        )
-
-        db.collection("USUARIOS").document("LA")
-            .set(city)
-            .addOnSuccessListener { Toast.makeText(this, "DATOS GUARDADOS", Toast.LENGTH_SHORT).show()}
-            .addOnFailureListener { Toast.makeText(this, "ERROR SUBIENDO", Toast.LENGTH_SHORT).show()}*/
     }
     fun signin(view: View){
         loguinUser()
@@ -96,7 +80,8 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) {task ->
                     if(task.isSuccessful) {
                         isLoguin = true
-                        action()
+                        updateDataInFirebase()
+                        readDataFromFirebase()
                     } else {
                         Toast.makeText(this, "ERROR DE AUTENTICACION", Toast.LENGTH_SHORT).show()
                         progresVarLoguin.visibility = View.INVISIBLE
@@ -107,61 +92,69 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "DATOS INCOMPLETOS", Toast.LENGTH_SHORT).show()
         }
     }
-    private fun action(){
-        startActivity(Intent(this, BluetoothActivity::class.java))
-        password.text.clear()
-        email.text.clear()
+    private fun updateDataInFirebase(){
+        fun Random.nextInt(range: IntRange): Float {return range.start + nextInt(range.last - range.start).toFloat()}
 
-        val user = auth.currentUser
-
-        /*años.forEach{años->
-            val userBDmesAños = database.getReference(años)
-            userBDmesAños.child(años)
-            meses.forEach { meses->
-                val userBDmes = database.getReference(meses)
-                userBDmes.child(meses)
-                dias.forEach {dias->
-                    val userBDdias = database.getReference(años).child(meses)
-                    userBDdias.child(dias).setValue(dias)
-                }
-            }
-        }*/
-
-        fun Random.nextInt(range: IntRange): Int {
-            return range.start + nextInt(range.last - range.start)
-        }
-
+        /*val firebaseTreeInformationName = database.getReference("ARBOL ENERGETICO")
+        firebaseTreeInformationName.child("ARBOL ENERGETICO")*/
         años.forEach{años->
-            val userBDmesAños = database.getReference(años)
+            val userBDmesAños = database.getReference("ARBOL ENERGETICO").child(años)
             userBDmesAños.child(años)
             meses.forEach { meses->
-                val userBDmes = database.getReference(meses)
+                val userBDmes = database.getReference("ARBOL ENERGETICO").child(años).child(meses)
                 userBDmes.child(meses)
                 dias.forEach {dias->
-                    val userBDdias = database.getReference(años).child(meses)
+                    val userBDdias = database.getReference("ARBOL ENERGETICO").child(años).child(meses).child(dias.toString())
                     userBDdias.child(dias.toString())
                     horas.forEach {horas->
-                        val userBDHoras = database.getReference(años).child(meses).child(dias.toString())
+                        val userBDHoras = database.getReference("ARBOL ENERGETICO").child(años).child(meses).child(dias.toString())
                         userBDHoras.child(horas.toString()).setValue(horas)
-                        val userBDInformationByHours = database.getReference(años).child(meses).child(dias.toString()).child(horas.toString())
-                        userBDInformationByHours.child("POTENCIA").setValue(Random().nextInt(0..100).toFloat())
-                        userBDInformationByHours.child("EFICIENCIA").setValue(Random().nextInt(0..1000).toFloat())
+                        val userBDInformationByHours = database.getReference("ARBOL ENERGETICO").child(años).child(meses).child(dias.toString()).child(horas.toString())
+                        userBDInformationByHours.child("POTENCIA").setValue(0.654f + Random().nextInt(0..100))
+                        userBDInformationByHours.child("EFICIENCIA").setValue(0.123f + Random().nextInt(0..1000))
                     }
                 }
             }
         }
 
-        /*meses.forEach {mes->
-            val userBDmes = database.getReference("AÑOS").child("MESES")
-            userBDmes.child(mes).setValue(mes)
-            dias.forEach {dia->
-                val userBDdia = database.getReference("AÑOS").child("MESES").child("DIA")
-                userBDdia.child(dia).setValue(dia)
+        startActivity(Intent(this, BluetoothActivity::class.java))
+        password.text.clear()
+        email.text.clear()
+    }
+
+    private fun readDataFromFirebase() {
+        myRef = database.getReference("ARBOL ENERGETICO")//.child("2019")//.child("Abril")//.child("1")//.child("0")//.child("POTENCIA")
+
+        myRef.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val t = object : GenericTypeIndicator<Any>() {}
+                val jsonInformation = dataSnapshot.getValue(t)
+                jsonInformation as HashMap<*,*>
+
+                for(keyYear in jsonInformation){
+                    keyYear.key
+                    val year = keyYear.value as HashMap<*,*>
+                    for (keyMonth in year) {
+                        keyMonth.key
+                        val month = keyMonth.value as ArrayList<ArrayList<HashMap<*, *>>>
+                        month.forEach { days ->
+                            if (days != null) {//Como los dias siempre son numeros mayores a 1, firebase retorna la posicion cero nula
+                                days.forEach { hours ->
+                                    for (keyHour in hours) {
+                                        keyHour.key
+                                        keyHour.value
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-        }*/
-        /*val userBD = database.getReference("AÑOS")
-        userBD.child("NOMBRE").setValue(name)
-        userBD.child("APELLIDO").setValue(lastName)*/
+
+            override fun onCancelled(error: DatabaseError){}
+
+        })
     }
 }
 
