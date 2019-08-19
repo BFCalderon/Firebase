@@ -129,10 +129,10 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val t = object : GenericTypeIndicator<Any>() {}
-                val jsonInformation = dataSnapshot.getValue(t)
-                jsonInformation as HashMap<*,*>
+                val jsonTreeInformation = dataSnapshot.getValue(t)
+                jsonTreeInformation as HashMap<*,*>
 
-                for(keyYear in jsonInformation){
+                for(keyYear in jsonTreeInformation){
                     keyYear.key
                     val year = keyYear.value as HashMap<*,*>
                     for (keyMonth in year) {
