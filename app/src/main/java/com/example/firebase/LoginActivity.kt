@@ -95,8 +95,9 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) {task ->
                     if(task.isSuccessful) {
                         isLoguin = true
+                        isLoguing()
                         //updateDataInFirebase()
-                        readDataFromFirebase()
+                        //readDataFromFirebase()
                     } else {
                         Toast.makeText(this, "ERROR DE AUTENTICACION", Toast.LENGTH_SHORT).show()
                         progresVarLoguin.visibility = View.INVISIBLE
@@ -154,7 +155,6 @@ class LoginActivity : AppCompatActivity() {
                     var yearIterator = 0
                 val sorted = jsonTreeInformation.toList() .sortedBy { (key, value) -> key.toString() }.toMap()
                 for (keyYear in sorted) {
-
                     yearIterator++
                     yearsInFirebase.add(
                         DateInformationVO(
@@ -193,20 +193,23 @@ class LoginActivity : AppCompatActivity() {
                             var hourIterator = 0
                             days.forEach { hour ->
                                 hourIterator++
+                                val potEfi: ArrayList<Float> = ArrayList()
+                                for (keyHour in hour) {
+                                    keyHour.key.toString()
+                                    keyHour.value.toString()
+                                    potEfi.add(keyHour.value.toString().toFloat())
+                                }
+
                                 hourInFirebase.add(
                                     DateInformationVO(
                                         foreingKey = daysIterator,
                                         foreingKey1 = monthIterator,
                                         foreingKey2 = yearIterator,
                                         date = hourIterator,
-                                        power = hour.get("POTENCIA").toString().toFloat(),
-                                        efficiency = hour.get("EFICIENCIA").toString().toFloat()
+                                        power = potEfi[1],
+                                        efficiency = potEfi[0]
                                     )
                                 )
-                                for (keyHour in hour) {
-                                    keyHour.key.toString()
-                                    keyHour.value.toString()
-                                }
                             }
                         }
                     }

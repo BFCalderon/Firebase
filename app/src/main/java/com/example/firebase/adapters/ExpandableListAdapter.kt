@@ -17,13 +17,17 @@ import kotlinx.android.synthetic.main.activity_register.view.*
 
 import java.util.HashMap
 
-class ExpandableListAdapter internal constructor(private val context: Context, private val titleList: List<DateInformationVO>, private val dataList: HashMap<DateInformationVO, List<DateInformationVO>>) : BaseExpandableListAdapter() {
+class ExpandableListAdapter internal constructor(
+    private val context: Context,/* private val titleList: List<DateInformationVO>,*/
+    private val parentList: List<DateInformationVO>, private val childList: ArrayList<List<DateInformationVO>>) : BaseExpandableListAdapter() {
 
     var flagYD = 1234
     var mathUtility: MathUtility = MathUtility()
+    var childExpandedPosition: Int ?= null
 
     override fun getChild(listPosition: Int, expandedListPosition: Int): DateInformationVO {
-        return this.dataList[this.titleList[listPosition]]!![expandedListPosition]
+        return childList[listPosition][expandedListPosition]
+        //return this.dataList[this.titleList[listPosition]]!![expandedListPosition]
     }
 
     override fun getChildId(listPosition: Int, expandedListPosition: Int): Long {
@@ -42,6 +46,8 @@ class ExpandableListAdapter internal constructor(private val context: Context, p
         val childEficiency = convertView.findViewById<TextView>(R.id.eficiencyText)
         val childEficiencyBar  = convertView.findViewById<ProgressBar>(R.id.eficiencyBarChlid)
 
+        //dataList
+
         childTitleName.text = if(flagYD > 31){ "${expandedListText.date}" }else{ "${expandedListText.date}"}
         childPower.text = "${mathUtility.roundDouble(expandedListText.power!!.toDouble(), 2)}W"
         childEficiency.text = "${mathUtility.roundDouble(expandedListText.efficiency!!.toDouble(),2)}%"
@@ -52,18 +58,19 @@ class ExpandableListAdapter internal constructor(private val context: Context, p
     }
 
     override fun getChildrenCount(listPosition: Int): Int {
-        return this.dataList[this.titleList[listPosition]]!!.size
+        return childList[childExpandedPosition!!].size
     }
 
     override fun getGroup(listPosition: Int): DateInformationVO {
-        return this.titleList[listPosition]
+        return this.parentList[listPosition]
     }
 
     override fun getGroupCount(): Int {
-        return this.titleList.size
+        return this.parentList.size
     }
 
     override fun getGroupId(listPosition: Int): Long {
+        childExpandedPosition = listPosition
         return listPosition.toLong()
     }
 
@@ -99,12 +106,12 @@ class ExpandableListAdapter internal constructor(private val context: Context, p
     }
 
     override fun onGroupExpanded(groupPosition: Int) {
-        flagYD = (titleList as ArrayList<DateInformationVO>)[groupPosition].date.toString().toInt()
-        Toast.makeText(context, titleList[groupPosition].date.toString() + " List Expanded.", Toast.LENGTH_SHORT).show()
+        flagYD = (parentList as ArrayList<DateInformationVO>)[groupPosition].date.toString().toInt()
+        Toast.makeText(context, parentList[groupPosition].date.toString() + " List Expanded.", Toast.LENGTH_SHORT).show()
     }
 
     override fun onGroupCollapsed(groupPosition: Int) {
-        Toast.makeText(context, (titleList as ArrayList<DateInformationVO>)[groupPosition].date.toString() + " List Collapsed.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, (parentList as ArrayList<DateInformationVO>)[groupPosition].date.toString() + " List Collapsed.", Toast.LENGTH_SHORT).show()
     }
 
     override fun isChildSelectable(listPosition: Int, expandedListPosition: Int): Boolean {

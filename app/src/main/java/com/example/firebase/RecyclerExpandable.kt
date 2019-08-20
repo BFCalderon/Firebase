@@ -16,16 +16,16 @@ class RecyclerExpandable : AppCompatActivity() {
 
     private lateinit var treeInformationViewModel: TreeInformationViewModel
     var infArrayParent: ArrayList<DateInformationVO> = ArrayList()
-    var infArrayChild: ArrayList<ArrayList<DateInformationVO>> = ArrayList()
+    var infArrayChild: ArrayList<List<DateInformationVO>> = ArrayList()
 
     private var actualYearSelected: Int ?= null
     private var actualMontSelected: Int ?= null
 
     private var expandableListView: ExpandableListView? = null
     private var adapter: ExpandableListAdapter? = null
-    private var titleList: List<DateInformationVO> ? = null
+    //private var titleList: ArrayList<DateInformationVO> = ArrayList()
 
-    lateinit var data: HashMap<DateInformationVO, List<DateInformationVO>>
+    //lateinit var data: HashMap<DateInformationVO, List<DateInformationVO>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,27 +41,27 @@ class RecyclerExpandable : AppCompatActivity() {
     private fun fillExpListInformation(){//Infla la vista con la informacion y la muestra
         expandableListView = findViewById(R.id.expandableListView)
         if (expandableListView != null) {
-            titleList = ArrayList(data.keys)
             adapter = com.tutorialwing.expandablelistview.ExpandableListAdapter(
-                this, titleList as ArrayList<DateInformationVO>, data)
+                this,infArrayParent, infArrayChild)
             expandableListView!!.setAdapter(adapter)
 
             expandableListView!!.setOnGroupExpandListener { groupPosition ->
                 Toast.makeText(applicationContext,
-                (titleList as ArrayList<DateInformationVO>)[groupPosition].date.toString() + " List Expanded.",
+                    infArrayParent[groupPosition].date.toString() + " List Expanded.",
                 Toast.LENGTH_SHORT).show()
-                actualYearSelected = (titleList as ArrayList<DateInformationVO>)[groupPosition].date.toString().toInt()
+                actualYearSelected = infArrayParent[groupPosition].date.toString().toInt()
             }
 
             expandableListView!!.setOnGroupCollapseListener { groupPosition ->
-                Toast.makeText(applicationContext, (titleList as ArrayList<DateInformationVO>)[groupPosition].date.toString() + " List Collapsed.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, infArrayParent[groupPosition].date.toString()
+                        + " List Collapsed.", Toast.LENGTH_SHORT).show()
             }
 
             expandableListView!!.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
-                Toast.makeText(applicationContext, "Clicked: " + (titleList as ArrayList<DateInformationVO>)[groupPosition].date
-                        + " -> " + data[(titleList as ArrayList<DateInformationVO>)[groupPosition]]!![childPosition].date,
+                Toast.makeText(applicationContext, "Clicked: " + infArrayParent[groupPosition].date
+                        + " -> " + infArrayChild[groupPosition][childPosition].date,
                     Toast.LENGTH_SHORT).show()
-                actualMontSelected = data[(titleList as ArrayList<DateInformationVO>)[groupPosition]]!![childPosition].date
+                actualMontSelected = infArrayChild[groupPosition][childPosition].date
                 parentObserver2()
                 false
             }
@@ -78,21 +78,20 @@ class RecyclerExpandable : AppCompatActivity() {
      }
 
     private fun childObserver2(){
+        infArrayChild.clear()
         var dayIterator = 0
         infArrayParent.forEach {
             treeInformationViewModel.getSpecificHours(this.actualYearSelected!!, this.actualMontSelected!!, dayIterator)
                 .observe(this, androidx.lifecycle.Observer<List<DateInformationVO>> { dateInf ->
-                    infArrayChild.add(dateInf as ArrayList<DateInformationVO>)
-                    dayIterator++
-                    if(infArrayParent.size == dayIterator){
-                        fillInf(infArrayParent, infArrayChild)
-                    }
+                    infArrayChild.add(dateInf)
+                    fillInf(infArrayParent, infArrayChild)
                 })
+            dayIterator++
             }
-        dayIterator = 0
     }
 
     private fun parentObserver() {//Trae la informacion de la base de datos
+        infArrayParent.clear()
         treeInformationViewModel.getAllYearInformation()
             .observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->
                 infArrayParent = dateInf as ArrayList<DateInformationVO>
@@ -105,25 +104,17 @@ class RecyclerExpandable : AppCompatActivity() {
         infArrayParent.forEach { year ->
             treeInformationViewModel.getMonthsPerYear(year.date!!)
                 .observe(this, androidx.lifecycle.Observer<List<DateInformationVO>> { dateInf ->
-                    infArrayChild.add(dateInf as ArrayList<DateInformationVO>)
+                    infArrayChild.add(dateInf)
                     iterator++
-                    if (iterator >= infArrayParent.size) {
-                        fillInf(infArrayParent, infArrayChild)
-                    }
+                    fillInf(infArrayParent, infArrayChild)
                 })
             }
         iterator = 0
     }
 
-    private fun fillInf(parent: ArrayList<DateInformationVO>, child: ArrayList<ArrayList<DateInformationVO>>){//Llena la informacion que se mostrará en el recycler expandible
-        val listData = HashMap<DateInformationVO, List<DateInformationVO>>()
-
-        var iterator = 0
-        parent.forEach { year->
-            listData[year] = child[iterator] as List<DateInformationVO>
-            iterator++
+    private fun fillInf(parent: List<DateInformationVO>, child: List<List<DateInformationVO>>){//Llena la informacion que se mostrará en el recycler expandible
+        if(parent.size == child.size) {
+            fillExpListInformation()
         }
-        data = listData
-        fillExpListInformation()
     }
 }
