@@ -54,15 +54,18 @@ class RecyclerExpandable : AppCompatActivity() {
 
             expandableListView!!.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
                 Toast.makeText(applicationContext, "Clicked: " + (titleList as ArrayList<DateInformationVO>)[groupPosition].date
-                        + " -> " + data[(titleList as ArrayList<DateInformationVO>)[groupPosition]]!![childPosition].month,
+                        + " -> " + data[(titleList as ArrayList<DateInformationVO>)[groupPosition]]!![childPosition].date,
                     Toast.LENGTH_SHORT).show()
-                //parentObserver2()
+                parentObserver2()
                 false
             }
         }
     }
 
      private fun parentObserver2(){
+         treeInformationViewModel.getDaysByMonths(2020, 3).observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->
+             childObserver2(dateInf as ArrayList<DateInformationVO>)
+         })
          treeInformationViewModel.getAllDaysInformation().observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->
              childObserver2(dateInf as ArrayList<DateInformationVO>)
          })

@@ -27,6 +27,7 @@ class TreeInformationViewModel(application: Application) : AndroidViewModel(appl
         repository.insertMont(monthInformation)
     }
 
+    fun getDaysByMonths(year: Int, month: Int) = repository.getDaysByMonths(year, month)
     fun getAllDaysInformation() = repository.getDay()
     fun saveDaysInformation(dayInformation: DateInformationVO) {
         repository.insertDays(dayInformation)

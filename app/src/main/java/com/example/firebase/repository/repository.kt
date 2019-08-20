@@ -87,8 +87,11 @@ class TreeInformationRepository(application: Application) {
     //MONTH END
 
     //DAY START
+    fun getDaysByMonths(year: Int, month: Int): LiveData<List<DateInformationVO>> {
+        return DayDTO.getInformationDate(dayDao!!.getDaysByMonths(year, month))
+    }
     fun getDay(): LiveData<List<DateInformationVO>> {
-        return DayDTO.getInformationDate(dayDao!!.getDays())
+        return DayDTO.getInformationDate(dayDao!!.getAllDays())
     }
     fun insertDays(dayInformation: DateInformationVO) {
         if (dayDao != null) AInsertDayAsyncTask(dayDao).execute(DayDTO.objectToData(dayInformation))

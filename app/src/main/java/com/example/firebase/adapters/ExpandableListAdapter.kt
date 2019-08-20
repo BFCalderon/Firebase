@@ -42,7 +42,7 @@ class ExpandableListAdapter internal constructor(private val context: Context, p
         val childEficiency = convertView.findViewById<TextView>(R.id.eficiencyText)
         val childEficiencyBar  = convertView.findViewById<ProgressBar>(R.id.eficiencyBarChlid)
 
-        childTitleName.text = if(flagYD > 31){ "${expandedListText.month}" }else{ "${expandedListText.date}"}
+        childTitleName.text = if(flagYD > 31){ "${expandedListText.date}" }else{ "${expandedListText.date}"}
         childPower.text = "${mathUtility.roundDouble(expandedListText.power!!.toDouble(), 2)}W"
         childEficiency.text = "${mathUtility.roundDouble(expandedListText.efficiency!!.toDouble(),2)}%"
         childEficiencyBar.progress = expandedListText.efficiency!!.toInt()

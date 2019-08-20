@@ -6,17 +6,11 @@ class DateInformationVO {
     var foreingKey1: Int ?= null
     var foreingKey2: Int ?= null
     var date: Int? = null
-    var month: String? = null
     var power: Float? = null
     var efficiency: Float? = null
 
     constructor(date: Int?, power: Float?, efficiency: Float?){
         this.date = date
-        this.power = power
-        this.efficiency = efficiency
-    }
-    constructor(month: String?, power: Float?, efficiency: Float?){
-        this.month = month
         this.power = power
         this.efficiency = efficiency
     }
@@ -27,15 +21,6 @@ class DateInformationVO {
     }
     constructor(foreingKey: Int?){
         this.foreingKey = foreingKey
-    }
-    constructor(month: String?){
-        this.month = month
-    }
-    constructor(foreingKey: Int?, month: String?, power: Float?, efficiency: Float?){
-        this.month = month
-        this.foreingKey = foreingKey
-        this.power = power
-        this.efficiency = efficiency
     }
     constructor(foreingKey: Int?,/* foreingKey1: Int?,*/ date: Int?, power: Float?, efficiency: Float?){
         this.date = date

@@ -30,7 +30,9 @@ import kotlin.collections.ArrayList
 
 class BluetoothActivity : AppCompatActivity() {
 
-    private val meses = listOf("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
+    /*private val meses = listOf("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")*/
+
+    private val meses = listOf(1,2,3,4,5,6,7,8,9,10,11,12)
 
     //Variable de sincronizacion con el microcontroldaor
     private var isTranfering = false
