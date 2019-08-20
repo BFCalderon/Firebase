@@ -152,58 +152,66 @@ class LoginActivity : AppCompatActivity() {
                 val daysInFirebase: ArrayList<DateInformationVO> = ArrayList()
                 val hourInFirebase: ArrayList<DateInformationVO> = ArrayList()
                     var yearIterator = 0
-                //jsonTreeInformation as ArrayList<ArrayList<ArrayList<HashMap<*, *>>>>
                 val sorted = jsonTreeInformation.toList() .sortedBy { (key, value) -> key.toString() }.toMap()
-                for(keyYear in sorted){
+                for (keyYear in sorted) {
+
                     yearIterator++
-                    yearsInFirebase.add(DateInformationVO(date = keyYear.key.toString().toInt(), efficiency = 1.3f,power = 1.5f))
+                    yearsInFirebase.add(
+                        DateInformationVO(
+                            date = keyYear.key.toString().toInt(),
+                            efficiency = 1.3f,
+                            power = 1.5f
+                        )
+                    )
                     val year = keyYear.value as ArrayList<*>
                     var monthIterator = 0
                     year.removeAt(0)
-                    year.forEach {months->
+                    year.forEach { months ->
                         monthIterator++
-                        monthsInFirebase.add(DateInformationVO(foreingKey = yearIterator, date = monthIterator, power = 2.6f,efficiency = 2.8f))
-                            val month = months as ArrayList<ArrayList<HashMap<*, *>>>
-                            var daysIterator = 0
-                            month.removeAt(0)//Como los dias siempre son numeros mayores a 1, firebase retorna la posicion cero nula
-                            month.forEach { days ->
-                                    daysIterator++
-                                    daysInFirebase.add(
-                                        DateInformationVO(
-                                            foreingKey = monthIterator,
-                                            foreingKey1 = yearIterator,
-                                            date = daysIterator,
-                                            efficiency = 3.9f,
-                                            power = 3.3f
-                                        )
+                        monthsInFirebase.add(
+                            DateInformationVO(
+                                foreingKey = yearIterator,
+                                date = monthIterator,
+                                power = 2.6f,
+                                efficiency = 2.8f
+                            )
+                        )
+                        val month = months as ArrayList<ArrayList<HashMap<*, *>>>
+                        var daysIterator = 0
+                        month.removeAt(0)//Como los dias siempre son numeros mayores a 1, firebase retorna la posicion cero nula
+                        month.forEach { days ->
+                            daysIterator++
+                            daysInFirebase.add(
+                                DateInformationVO(
+                                    foreingKey = monthIterator,
+                                    foreingKey1 = yearIterator,
+                                    date = daysIterator,
+                                    efficiency = 3.9f,
+                                    power = 3.3f
+                                )
+                            )
+                            var hourIterator = 0
+                            days.forEach { hour ->
+                                hourIterator++
+                                hourInFirebase.add(
+                                    DateInformationVO(
+                                        foreingKey = daysIterator,
+                                        foreingKey1 = monthIterator,
+                                        foreingKey2 = yearIterator,
+                                        date = hourIterator,
+                                        power = hour.get("POTENCIA").toString().toFloat(),
+                                        efficiency = hour.get("EFICIENCIA").toString().toFloat()
                                     )
-                                    var hourIterator = 0
-                                    days.forEach { hour ->
-                                        hourIterator++
-                                        hourInFirebase.add(
-                                            DateInformationVO(
-                                                foreingKey = daysIterator,
-                                                foreingKey1 = monthIterator,
-                                                foreingKey2 = yearIterator,
-                                                date = hourIterator,
-                                                power = hour.get("POTENCIA").toString().toFloat(),
-                                                efficiency = hour.get("EFICIENCIA").toString().toFloat()
-                                            )
-                                        )
-                                        for (keyHour in hour) {
-                                            keyHour.key.toString()
-                                            keyHour.value.toString()
-                                        }
-                                    }
-                                //}
+                                )
+                                for (keyHour in hour) {
+                                    keyHour.key.toString()
+                                    keyHour.value.toString()
+                                }
                             }
-                        //}
+                        }
                     }
                 }
-                /*yearsInFirebase
-                yearsInFirebase.sortBy { DateInformationVO -> DateInformationVO.date }
-                yearsInFirebase*/
-
+                //yearsInFirebase.sortBy { DateInformationVO -> DateInformationVO.date }//Ejemplo de ordenar un array por tipo de elemento
                 yearsInFirebase.forEach {
                     treeInformationViewModel.saveYearInformation(it)
                     //treeInformationViewModel.deleteYearInformation(2019)

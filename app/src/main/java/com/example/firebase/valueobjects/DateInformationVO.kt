@@ -6,6 +6,7 @@ class DateInformationVO {
     var foreingKey1: Int ?= null
     var foreingKey2: Int ?= null
     var date: Int? = null
+    var anchor: Int? = null
     var power: Float? = null
     var efficiency: Float? = null
 

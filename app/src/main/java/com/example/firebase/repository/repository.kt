@@ -66,7 +66,7 @@ class TreeInformationRepository(application: Application) {
     //YEAR END
 
     //MONTH START
-    fun getMonth(): LiveData<List<DateInformationVO>> {
+    fun getMonth(): LiveData<List<DateInformationVO>>{
         return MonthDTO.getInformationDate(monthDao!!.getMonth())
     }
     fun getMonths(year: Int): LiveData<List<DateInformationVO>>{
@@ -108,6 +108,10 @@ class TreeInformationRepository(application: Application) {
     //DAY END
 
     //HOUR START
+    fun getSpecificHours(year: Int, month: Int, day: Int): LiveData<List<DateInformationVO>> {
+        return HourDTO.getInformationDate(hourDao!!.getSpecificHours(year, month, day))
+    }
+
     fun getHour(): LiveData<List<DateInformationVO>> {
         return HourDTO.getInformationDate(hourDao!!.getHours())
     }

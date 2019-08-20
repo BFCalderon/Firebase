@@ -33,6 +33,7 @@ class TreeInformationViewModel(application: Application) : AndroidViewModel(appl
         repository.insertDays(dayInformation)
     }
 
+    fun getSpecificHours(year: Int, month: Int, day: Int) = repository.getSpecificHours(year, month, day)
     fun getAllHoursInformation() = repository.getHour()
     fun saveHoursInformation(hourInformation: DateInformationVO) {
         repository.insertHours(hourInformation)

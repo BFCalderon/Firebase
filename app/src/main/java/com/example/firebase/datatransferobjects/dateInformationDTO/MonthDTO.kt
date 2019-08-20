@@ -29,7 +29,7 @@ object MonthDTO: GenericDataTransferObject<MonthEntity, DateInformationVO>() {
     fun getInformationDate(entities: LiveData<List<MonthEntity>>) = getVOLiveData(entities)
 
     fun getMonths(dateInformation: LiveData<List<MonthEntity>>) = getVOLiveData(dateInformation)//: ArrayList<DateInformationVO> {
-        /*val months: ArrayList<DateInformationVO> = ArrayList()
+    /*val months: ArrayList<DateInformationVO> = ArrayList()
         dateInformation.forEach {
             months.add(DateInformationVO(it.months))
         }

@@ -1,6 +1,7 @@
 package com.example.firebase
 
 import android.os.Bundle
+import android.os.Handler
 import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
 import android.widget.Toast
@@ -14,8 +15,11 @@ import kotlin.collections.ArrayList
 class RecyclerExpandable : AppCompatActivity() {
 
     private lateinit var treeInformationViewModel: TreeInformationViewModel
-    var infArrayYear: ArrayList<DateInformationVO> = ArrayList()
-    var infArrayMonth: ArrayList<DateInformationVO> = ArrayList()
+    var infArrayParent: ArrayList<DateInformationVO> = ArrayList()
+    var infArrayChild: ArrayList<ArrayList<DateInformationVO>> = ArrayList()
+
+    private var actualYearSelected: Int ?= null
+    private var actualMontSelected: Int ?= null
 
     private var expandableListView: ExpandableListView? = null
     private var adapter: ExpandableListAdapter? = null
@@ -42,10 +46,11 @@ class RecyclerExpandable : AppCompatActivity() {
                 this, titleList as ArrayList<DateInformationVO>, data)
             expandableListView!!.setAdapter(adapter)
 
-            expandableListView!!.setOnGroupExpandListener {
-                groupPosition -> Toast.makeText(applicationContext,
+            expandableListView!!.setOnGroupExpandListener { groupPosition ->
+                Toast.makeText(applicationContext,
                 (titleList as ArrayList<DateInformationVO>)[groupPosition].date.toString() + " List Expanded.",
                 Toast.LENGTH_SHORT).show()
+                actualYearSelected = (titleList as ArrayList<DateInformationVO>)[groupPosition].date.toString().toInt()
             }
 
             expandableListView!!.setOnGroupCollapseListener { groupPosition ->
@@ -56,6 +61,7 @@ class RecyclerExpandable : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Clicked: " + (titleList as ArrayList<DateInformationVO>)[groupPosition].date
                         + " -> " + data[(titleList as ArrayList<DateInformationVO>)[groupPosition]]!![childPosition].date,
                     Toast.LENGTH_SHORT).show()
+                actualMontSelected = data[(titleList as ArrayList<DateInformationVO>)[groupPosition]]!![childPosition].date
                 parentObserver2()
                 false
             }
@@ -63,48 +69,59 @@ class RecyclerExpandable : AppCompatActivity() {
     }
 
      private fun parentObserver2(){
-         treeInformationViewModel.getDaysByMonths(2020, 3).observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->
-             childObserver2(dateInf as ArrayList<DateInformationVO>)
-         })
-         treeInformationViewModel.getAllDaysInformation().observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->
-             childObserver2(dateInf as ArrayList<DateInformationVO>)
-         })
+         infArrayParent.clear()
+         treeInformationViewModel.getDaysByMonths(this.actualYearSelected!!, this.actualMontSelected!!)
+             .observe(this, androidx.lifecycle.Observer<List<DateInformationVO>> { dateInf ->
+                 infArrayParent = dateInf as ArrayList<DateInformationVO>
+                 childObserver2()
+             })
      }
 
-    private fun childObserver2(parentArrayList: ArrayList<DateInformationVO>){
-        treeInformationViewModel.getAllHoursInformation().observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{dateInf->
-            infArrayYear = parentArrayList
-            infArrayMonth = dateInf as ArrayList<DateInformationVO>
-            fillInf(infArrayYear, dateInf)
-        })
+    private fun childObserver2(){
+        var dayIterator = 0
+        infArrayParent.forEach {
+            treeInformationViewModel.getSpecificHours(this.actualYearSelected!!, this.actualMontSelected!!, dayIterator)
+                .observe(this, androidx.lifecycle.Observer<List<DateInformationVO>> { dateInf ->
+                    infArrayChild.add(dateInf as ArrayList<DateInformationVO>)
+                    dayIterator++
+                    if(infArrayParent.size == dayIterator){
+                        fillInf(infArrayParent, infArrayChild)
+                    }
+                })
+            }
+        dayIterator = 0
     }
 
     private fun parentObserver() {//Trae la informacion de la base de datos
         treeInformationViewModel.getAllYearInformation()
             .observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->
-                infArrayYear = dateInf as ArrayList<DateInformationVO>
+                infArrayParent = dateInf as ArrayList<DateInformationVO>
             childObserver()
         })
     }
 
     private fun childObserver(){
-        infArrayYear.forEach {
-            treeInformationViewModel.getMonthsPerYear(it.date!!)
+        var iterator = 0
+        infArrayParent.forEach { year ->
+            treeInformationViewModel.getMonthsPerYear(year.date!!)
                 .observe(this, androidx.lifecycle.Observer<List<DateInformationVO>> { dateInf ->
-                    infArrayMonth = dateInf as ArrayList<DateInformationVO>
-                    fillInf(infArrayYear, infArrayMonth)
+                    infArrayChild.add(dateInf as ArrayList<DateInformationVO>)
+                    iterator++
+                    if (iterator >= infArrayParent.size) {
+                        fillInf(infArrayParent, infArrayChild)
+                    }
                 })
-        }
+            }
+        iterator = 0
     }
 
-    private fun fillInf(parent: ArrayList<DateInformationVO>, child: ArrayList<DateInformationVO>){//Llena la informacion que se mostrará en el recycler expandible
+    private fun fillInf(parent: ArrayList<DateInformationVO>, child: ArrayList<ArrayList<DateInformationVO>>){//Llena la informacion que se mostrará en el recycler expandible
         val listData = HashMap<DateInformationVO, List<DateInformationVO>>()
-        val listMonth: ArrayList<DateInformationVO> = ArrayList()
-        child.forEach {
-            listMonth.add(it)
-        }
+
+        var iterator = 0
         parent.forEach { year->
-            listData[year] = listMonth as List<DateInformationVO>
+            listData[year] = child[iterator] as List<DateInformationVO>
+            iterator++
         }
         data = listData
         fillExpListInformation()
