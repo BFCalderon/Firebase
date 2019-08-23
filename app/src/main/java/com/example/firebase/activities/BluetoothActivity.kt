@@ -1,4 +1,4 @@
-package com.example.firebase
+package com.example.firebase.activities
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.firebase.R
 import com.example.firebase.adapters.TreeInformationAdapter
 import com.example.firebase.valueobjects.DateInformationVO
 import com.example.firebase.viewmodel.TreeInformationViewModel
@@ -57,7 +58,7 @@ class BluetoothActivity : AppCompatActivity() {
     private var btSocket: BluetoothSocket ?= null
     // SPP UUID service - this should work for most devices
     private val BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
-    private var mConnectedThread: ConnectedThread ?= ConnectedThread()
+    private var mConnectedThread: ConnectedThread?= ConnectedThread()
     internal lateinit var bluetoothIn: Handler
     internal val handlerState = 0                         //used to identify handler message
     private var firstTime = true
@@ -138,7 +139,7 @@ class BluetoothActivity : AppCompatActivity() {
         val path = Uri.parse("android.resource://" + this.baseContext.packageName + "/" + R.raw.video)
         videoTree.setVideoURI(path)
         videoTree.start()
-        videoTree.setOnPreparedListener { mp ->
+        videoTree.setOnPreparedListener{ mp ->
             mp.isLooping = true
         }
     }

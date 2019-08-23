@@ -1,4 +1,4 @@
-package com.example.firebase
+package com.example.firebase.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+import com.example.firebase.R
 import com.example.firebase.valueobjects.DateInformationVO
 import com.example.firebase.viewmodel.TreeInformationViewModel
 import com.facebook.stetho.Stetho
@@ -74,7 +75,9 @@ class LoginActivity : AppCompatActivity() {
         alertDialog.setMessage("Los datos no se enviaran al servidor. ¿Desea continuar?")
 
         alertDialog.setPositiveButton("SI") { _, _ ->
-            startActivity(Intent(this, RecyclerExpandable::class.java))
+            //startActivity(Intent(this, RecyclerExpandable::class.java))
+            // Pasaremos de la actividad actual a OtraActivity
+            startActivity(Intent(this, YearsActivity::class.java))
         }
         alertDialog.setNegativeButton("NO") { _, _ ->
             Toast.makeText(this, "SI NO TIENE UN CUENTA POR FAVOR REGISTRESE!", Toast.LENGTH_LONG).show()

@@ -1,15 +1,14 @@
-package com.example.firebase
+package com.example.firebase.activities
 
 import android.os.Bundle
-import android.os.Handler
 import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+import com.example.firebase.R
 import com.example.firebase.valueobjects.DateInformationVO
 import com.example.firebase.viewmodel.TreeInformationViewModel
-import java.util.*
 import kotlin.collections.ArrayList
 
 class RecyclerExpandable : AppCompatActivity() {

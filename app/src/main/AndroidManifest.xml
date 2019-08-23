@@ -4,6 +4,7 @@
           package="com.example.firebase">
 
     <uses-permission android:name="android.permission.BLUETOOTH"/>
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -12,10 +13,18 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".RecyclerExpandable">
+        <activity android:name=".activities.HoursActivity">
+        </activity>
+        <activity android:name=".activities.DaysActivity">
+        </activity>
+        <activity android:name=".activities.MonthsActivity">
+        </activity>
+        <activity android:name=".activities.YearsActivity">
+        </activity>
+        <activity android:name=".activities.RecyclerExpandable">
         </activity>
         <activity
-                android:name=".LoginActivity"
+                android:name=".activities.LoginActivity"
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -24,13 +33,13 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".forgotPassActivity"
+                android:name=".activities.forgotPassActivity"
                 android:screenOrientation="portrait"/>
         <activity
-                android:name=".BluetoothActivity"
+                android:name=".activities.BluetoothActivity"
                 android:screenOrientation="portrait"/>
         <activity
-                android:name=".RegisterActivity"
+                android:name=".activities.RegisterActivity"
                 android:screenOrientation="portrait"/>
     </application>
 

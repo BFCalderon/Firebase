@@ -4,20 +4,31 @@
 xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
-android:orientation="vertical">
+android:orientation="vertical"
+android:background="@drawable/round_view_information"
+android:layout_marginBottom="10dp">
 
+	<LinearLayout
+			android:id="@+id/parent"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
 <LinearLayout
-		android:layout_marginLeft="40dp"
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		style="@style/MyEditTextTheme">
 
 	<TextView
+			android:text="dfgsfdg"
 			android:id="@+id/titleName"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-			android:layout_weight="1"/>
+			android:layout_weight="1"
+			android:textSize="20dp"
+			android:textStyle="bold"
+			android:layout_marginStart="10dp"
+			android:layout_marginLeft="10dp"/>
 
 	<TextView
 			android:id="@+id/powerText"
@@ -29,7 +40,6 @@ android:orientation="vertical">
 </LinearLayout>
 
 <LinearLayout
-		android:layout_marginLeft="40dp"
 		android:gravity="center"
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
@@ -42,10 +52,11 @@ android:orientation="vertical">
 			android:max="100"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="40dp"
-			android:layout_weight="0.87"
-			android:layout_marginStart="40dp"
-			android:progressTint="@color/colorPrimary"/>
+			android:layout_weight="1"
+			android:progressTint="@color/colorPrimaryDark"
+
+			android:layout_marginStart="15dp"
+			android:layout_marginLeft="15dp"/>
 
 	<TextView
 			android:id="@+id/eficiencyText"
@@ -55,5 +66,7 @@ android:orientation="vertical">
 			android:layout_height="20dp"
 			android:layout_weight="0.4"/>
 
-</LinearLayout>
+		</LinearLayout>
+	</LinearLayout>
+
 </LinearLayout>
