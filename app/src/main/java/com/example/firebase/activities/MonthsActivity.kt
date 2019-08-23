@@ -1,19 +1,18 @@
 package com.example.firebase.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebase.R
 import com.example.firebase.adapters.TreeInformationAdapter
-import com.example.firebase.utils.ConstantValues
 import com.example.firebase.valueobjects.DateInformationVO
 import com.example.firebase.viewmodel.TreeInformationViewModel
 import kotlinx.android.synthetic.main.activity_months.*
-import java.util.ArrayList
+import java.util.*
 
 class MonthsActivity : AppCompatActivity(), TreeInformationAdapter.INotifyItemSelected {
 

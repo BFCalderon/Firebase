@@ -132,6 +132,13 @@ class BluetoothActivity : AppCompatActivity() {
         initButons()
         initBTReciberListener()
         initVideo()
+
+        try {
+            while(!conectBluetoothManager()){}
+            Toast.makeText(this, "CONECTADO", Toast.LENGTH_SHORT).show()
+        }catch ( e: IOException){
+            Toast.makeText(this, "NO SE PUDO CONECTAR", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initVideo(){
@@ -207,19 +214,6 @@ class BluetoothActivity : AppCompatActivity() {
         reconectar.setOnClickListener {
             conectBluetoothManager()
         }
-        buttonOn.setOnClickListener {
-            mConnectedThread!!.write("12345")
-        }
-        buttonOff.setOnClickListener {
-            mConnectedThread!!.write("BFCalderon")
-        }
-    }
-
-    private fun startRecycler(){
-        adapterInformationDates = TreeInformationAdapter(dateInfoBD!!)
-        recyclerDateInfBD = recyclerInformation
-        recyclerDateInfBD!!.layoutManager = LinearLayoutManager(this)
-        recyclerDateInfBD!!.adapter = this.adapterInformationDates
     }
 
     override fun onPause() {
@@ -242,33 +236,29 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {sendBtn
-        super.onStart()
-        conectBluetoothManager()
-    }
-
-    private fun conectBluetoothManager(){
+    private fun conectBluetoothManager(): Boolean{
         var conection = false
         do {
             try {
                 Handler().postDelayed({
-                    conectBluetooth()},1000)
+                    conectBluetooth()},2500)
                 conection = true
             } catch ( e: IOException) {
                 Toast.makeText(this, "LA CREACION DEL SOCKED FALLÓ", Toast.LENGTH_LONG).show()
-                try {
+                /*try {
                     mConnectedThread!!.interrupt()
                 } catch (e2: IOException) {}
                 try {
                     btSocket?.close()
-                }catch (e: IOException){}
+                }catch (e: IOException){}*/
             }
         } while (!conection)
+        return conection
     }
 
     private fun conectBluetooth(){
         try {
-            checkBTState()
+            //checkBTState()
             mBtAdapter = BluetoothAdapter.getDefaultAdapter()
             val device: BluetoothDevice = mBtAdapter.getRemoteDevice("98:D3:71:FD:6A:54")
             btSocket = device.createRfcommSocketToServiceRecord(BTMODULEUUID)
@@ -278,7 +268,7 @@ class BluetoothActivity : AppCompatActivity() {
         } catch (e: IOException){}
     }
 
-    //Checks that the Android device Bluetooth is available and prompts to be turned on if off
+    /*//Checks that the Android device Bluetooth is available and prompts to be turned on if off
     private fun checkBTState(){
         // Check device has Bluetooth and that it is turned on
         mBtAdapter = BluetoothAdapter.getDefaultAdapter()// CHECK THIS OUT THAT IT WORKS!!!
@@ -289,7 +279,7 @@ class BluetoothActivity : AppCompatActivity() {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(enableBtIntent, 1)
         }
-    }
+    }*/
 
     private fun addObserver() {
         treeInformationViewModel.getAllHoursInformation().observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->
@@ -297,19 +287,18 @@ class BluetoothActivity : AppCompatActivity() {
             dateInf.forEach {
                 dateInfoBD!!.add(it)
             }
-            startRecycler()
         })
     }
 
     private fun Random.nextInt(range: IntRange): Int {
-        return range.start + nextInt(range.last - range.start)
+        return range.start + nextInt(range.last - range.first)
     }
 
     private fun addTreeInformation() {
         //for(i in 1..10){}
         //treeInformationViewModel.saveTreeInformation(DateInformationVO("${i+1}/08/2019","$i:19",i*10.5498f))
 
-        for(i in 2019..2024) treeInformationViewModel.saveYearInformation(DateInformationVO(i,i*0.7f, Random().nextInt(0..100).toFloat()))
+        for(i in 2019..2024) treeInformationViewModel.saveYearInformation(DateInformationVO(i+0,i*0.7f, Random().nextInt(0..100).toFloat()+0f))
 
         for(i in 0..11) treeInformationViewModel.saveMonthInformation(DateInformationVO(meses[i],i*0.3f, Random().nextInt(0..100).toFloat()))
 

@@ -1,7 +1,9 @@
 package com.example.firebase.activities
 
+import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
@@ -87,8 +89,25 @@ class LoginActivity : AppCompatActivity() {
 
     private fun isLoguing(){
         if(isLoguin){
-            startActivity(Intent(this, BluetoothActivity::class.java))
+            checkBTState()
+            Handler().postDelayed({startActivity(Intent(this, BluetoothActivity::class.java))}, 2000)
         }
+    }
+
+    //Checks that the Android device Bluetooth is available and prompts to be turned on if off
+    private fun checkBTState(): Boolean{
+        var BTActivado = false
+        val mBtAdapter = BluetoothAdapter.getDefaultAdapter()// CHECK THIS OUT THAT IT WORKS!!!
+        if (mBtAdapter.isEnabled) {
+            Toast.makeText(this, "BLUETOOTH ACTIVADO", Toast.LENGTH_SHORT).show()
+            BTActivado = true
+        } else {
+            //Prompt user to turn on Bluetooth
+            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            BTActivado = true
+            startActivityForResult(enableBtIntent, 1)
+        }
+        return BTActivado
     }
 
     private fun loguinUser(){
@@ -221,7 +240,6 @@ class LoginActivity : AppCompatActivity() {
                 yearsInFirebase.forEach {
                     treeInformationViewModel.saveYearInformation(it)
                     //treeInformationViewModel.deleteYearInformation(2019)
-
                 }
                 monthsInFirebase.forEach {
                     treeInformationViewModel.saveMonthInformation(it)
