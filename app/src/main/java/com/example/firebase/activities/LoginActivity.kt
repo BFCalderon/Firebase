@@ -234,10 +234,9 @@ class LoginActivity : AppCompatActivity() {
                             )
                             powerMonth += powerDay
                             eficiencyMonth += eficiencyDay
-
                         }
-                        powerMonth /= monthIterator
-                        eficiencyMonth /= monthIterator
+                        powerMonth /= daysIterator
+                        eficiencyMonth /= daysIterator
                         monthsInFirebase.add(
                             DateInformationVO(
                                 foreingKey = yearIterator,
@@ -249,8 +248,8 @@ class LoginActivity : AppCompatActivity() {
                         powerYear += powerMonth
                         eficiencyYear += eficiencyMonth
                     }
-                    powerYear /= yearIterator
-                    eficiencyYear /= yearIterator
+                    powerYear /= monthIterator
+                    eficiencyYear /= monthIterator
                         yearsInFirebase.add(
                         DateInformationVO(
                             date = keyYear.key.toString().toInt(),

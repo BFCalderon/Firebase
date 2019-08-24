@@ -2,6 +2,7 @@ package com.example.firebase.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.firebase.entities.DayEntity
 import com.example.firebase.entities.MonthEntity
 import com.example.firebase.entities.YearEntity
 import com.example.firebase.entities.business.monthInformationJoin
@@ -20,7 +21,7 @@ interface MonthDao {
     @Delete
     fun delete(vararg mounthInformation: MonthEntity)
 
-    @Query(
+    /*@Query(
         "SELECT * " +
                 " FROM " + MonthEntity.TABLE_NAME +
                 " INNER JOIN " + YearEntity.TABLE_NAME +
@@ -29,6 +30,15 @@ interface MonthDao {
                 " = " + MonthEntity.FOREING_KEY +
                 " AND " + YearEntity.YEAR + "=:year"
     )
+    fun getMonths(year: Int): LiveData<List<MonthEntity>>*/
+
+    @Query(
+        "SELECT * " +
+                " FROM " + MonthEntity.TABLE_NAME +
+                " WHERE " + MonthEntity.FOREING_KEY +
+                " = (SELECT " + YearEntity.YEAR_ID +
+                " FROM " + YearEntity.TABLE_NAME+
+                " WHERE " + YearEntity.YEAR+" =:year)")
     fun getMonths(year: Int): LiveData<List<MonthEntity>>
 
     @Query(
