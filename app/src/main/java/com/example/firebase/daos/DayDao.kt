@@ -40,6 +40,10 @@ interface DayDao {
     )
     fun getDaysByMonths(year: Int, month: Int): LiveData<List<DayEntity>>
 
+    @Query(
+        "DELETE FROM " + DayEntity.TABLE_NAME)
+    fun cleanTableDays()
+
     @Query("SELECT * FROM " + DayEntity.TABLE_NAME +" ORDER BY DAY_COLUM")
     fun getAllDays(): LiveData<List<DayEntity>>
 }

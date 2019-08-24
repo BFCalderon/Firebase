@@ -63,6 +63,16 @@ class TreeInformationRepository(application: Application) {
             return null
         }
     }
+    fun cleanTableYears() {
+        if (yearDao != null) ACleanTableYearsAsyncTask(yearDao).execute()
+    }
+    private class ACleanTableYearsAsyncTask(private val yearDao: YearDao) :
+        AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg params: Void?): Void? {
+            yearDao.cleanTableYear()
+            return null
+        }
+    }
     //YEAR END
 
     //MONTH START
@@ -84,6 +94,18 @@ class TreeInformationRepository(application: Application) {
             return null
         }
     }
+
+    fun cleanTableMonths() {
+        if (monthDao != null) ACleanTableMonthsAsyncTask(monthDao).execute()
+    }
+    private class ACleanTableMonthsAsyncTask(private val monthDao: MonthDao) :
+        AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg params: Void?): Void? {
+            monthDao.cleanTableMonth()
+            return null
+        }
+    }
+
     //MONTH END
 
     //DAY START
@@ -102,6 +124,17 @@ class TreeInformationRepository(application: Application) {
             for (dayInformation in dayInformations) {
                 if (dayInformation != null) dayDao.insertOrUpdateRow(dayInformation)
             }
+            return null
+        }
+    }
+
+    fun cleanTableDays() {
+        if (dayDao != null) ACleanTableDaysAsyncTask(dayDao).execute()
+    }
+    private class ACleanTableDaysAsyncTask(private val dayDao: DayDao) :
+        AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg params: Void?): Void? {
+            dayDao.cleanTableDays()
             return null
         }
     }
@@ -127,5 +160,16 @@ class TreeInformationRepository(application: Application) {
             return null
         }
     }
+    fun cleanTableHours() {
+        if (hourDao != null) ACleanTableHoursAsyncTask(hourDao).execute()
+    }
+    private class ACleanTableHoursAsyncTask(private val hourDao: HourDao) :
+        AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg params: Void?): Void? {
+            hourDao.cleanTableHours()
+            return null
+        }
+    }
+
     //HOUR END
 }

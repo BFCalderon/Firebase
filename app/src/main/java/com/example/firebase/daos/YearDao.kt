@@ -14,11 +14,15 @@ interface YearDao {
 
     @Update
     fun update(vararg yearInformation: YearEntity)
-    //"DELETE FROM VEHICLE WHERE VEHICLE_ID =?"
+
     @Query(
         "DELETE FROM " + YearEntity.TABLE_NAME + " WHERE " + YearEntity.YEAR + " =:year"
     )
     fun delete(vararg year: Int)
+
+    @Query(
+        "DELETE FROM " + YearEntity.TABLE_NAME)
+    fun cleanTableYear()
 
     @Query("SELECT * FROM " + YearEntity.TABLE_NAME +" ORDER BY " + YearEntity.YEAR)
     fun getYears(): LiveData<List<YearEntity>>

@@ -43,6 +43,10 @@ interface HourDao {
     )
     fun getSpecificHours(year: Int, month: Int, day: Int): LiveData<List<HourEntity>>
 
+    @Query(
+        "DELETE FROM " + HourEntity.TABLE_NAME)
+    fun cleanTableHours()
+
     @Query("SELECT * FROM " + HourEntity.TABLE_NAME +" ORDER BY HOUR_COLUM")
     fun getHours(): LiveData<List<HourEntity>>
 }

@@ -96,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
 
     //Checks that the Android device Bluetooth is available and prompts to be turned on if off
     private fun checkBTState(): Boolean{
-        var BTActivado = false
+        var BTActivado: Boolean
         val mBtAdapter = BluetoothAdapter.getDefaultAdapter()// CHECK THIS OUT THAT IT WORKS!!!
         if (mBtAdapter.isEnabled) {
             Toast.makeText(this, "BLUETOOTH ACTIVADO", Toast.LENGTH_SHORT).show()
@@ -259,39 +259,10 @@ class LoginActivity : AppCompatActivity() {
                         )
                     )
                 }
-
-                /*var informationPerDay: ArrayList<DateInformationVO> = ArrayList()
-                val divFactor: ArrayList<Int> = ArrayList()
-
-                daysInFirebase.forEach {
-                    informationPerDay!!.add(
-                        DateInformationVO(
-                            efficiency = 0f,
-                            power = 0f
-                        )
-                    )
-                    divFactor.add(0)
-                }
-
-                for(i in 0 until hourInFirebase.size){
-                    divFactor[hourInFirebase[i].foreingKey!!-1]+=1
-
-                    informationPerDay[hourInFirebase[i].foreingKey!!-1].power =
-                        informationPerDay[hourInFirebase[i].foreingKey!!-1].power?.plus(hourInFirebase[i].power!! )
-                    informationPerDay[hourInFirebase[i].foreingKey!!-1].efficiency =
-                        informationPerDay[hourInFirebase[i].foreingKey!!-1].efficiency?.plus(hourInFirebase[i].efficiency!!)
-                }
-                for(i in 0 until informationPerDay!!.size){
-                    informationPerDay[i].power = informationPerDay[i].power!!.div(divFactor[i])
-                }
-
-                informationPerDay*/
-
-                Toast.makeText(applicationContext, "pasó", Toast.LENGTH_SHORT).show()
-                hourInFirebase
-                daysInFirebase
-                monthsInFirebase
-                yearsInFirebase
+                //treeInformationViewModel.cleanTableHours()
+                //treeInformationViewModel.cleanTableDays()
+                //treeInformationViewModel.cleanTableMonths()
+                //treeInformationViewModel.cleanTableYears()
 
                 //yearsInFirebase.sortBy { DateInformationVO -> DateInformationVO.date }//Ejemplo de ordenar un array por tipo de elemento
                 yearsInFirebase.forEach {
@@ -307,10 +278,10 @@ class LoginActivity : AppCompatActivity() {
                 hourInFirebase.forEach {
                     treeInformationViewModel.saveHoursInformation(it)
                 }
+                //treeInformationViewModel.deleteYearInformation(2019)
+
             }
             override fun onCancelled(error: DatabaseError){}
         })
     }
 }
-
-

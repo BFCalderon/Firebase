@@ -31,6 +31,10 @@ interface MonthDao {
     )
     fun getMonths(year: Int): LiveData<List<MonthEntity>>
 
+    @Query(
+        "DELETE FROM " + MonthEntity.TABLE_NAME)
+    fun cleanTableMonth()
+
     @Query("SELECT * FROM " + MonthEntity.TABLE_NAME +" ORDER BY MONTH_COLUM")
     fun getMonth(): LiveData<List<MonthEntity>>
 }

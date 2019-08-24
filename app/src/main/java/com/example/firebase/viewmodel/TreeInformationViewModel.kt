@@ -20,11 +20,17 @@ class TreeInformationViewModel(application: Application) : AndroidViewModel(appl
     fun deleteYearInformation(year: Int) {
         repository.deleteYear(year)
     }
+    fun cleanTableYears() {
+        repository.cleanTableYears()
+    }
 
     fun getAllMonthInformation(/*year: Int*/) = repository.getMonth()
     fun getMonthsPerYear(year: Int) = repository.getMonths(year)
     fun saveMonthInformation(monthInformation: DateInformationVO) {
         repository.insertMont(monthInformation)
+    }
+    fun cleanTableMonths() {
+        repository.cleanTableMonths()
     }
 
     fun getDaysByMonths(year: Int, month: Int) = repository.getDaysByMonths(year, month)
@@ -32,10 +38,16 @@ class TreeInformationViewModel(application: Application) : AndroidViewModel(appl
     fun saveDaysInformation(dayInformation: DateInformationVO) {
         repository.insertDays(dayInformation)
     }
+    fun cleanTableDays(){
+        repository.cleanTableDays()
+    }
 
     fun getSpecificHours(year: Int, month: Int, day: Int) = repository.getSpecificHours(year, month, day)
     fun getAllHoursInformation() = repository.getHour()
     fun saveHoursInformation(hourInformation: DateInformationVO) {
         repository.insertHours(hourInformation)
+    }
+    fun cleanTableHours(){
+        repository.cleanTableHours()
     }
 }
