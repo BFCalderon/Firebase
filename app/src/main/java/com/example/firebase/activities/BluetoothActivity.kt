@@ -258,7 +258,7 @@ class BluetoothActivity : AppCompatActivity() {
 
     private fun conectBluetooth(){
         try {
-            //checkBTState()
+            checkBTState()
             mBtAdapter = BluetoothAdapter.getDefaultAdapter()
             val device: BluetoothDevice = mBtAdapter.getRemoteDevice("98:D3:71:FD:6A:54")
             btSocket = device.createRfcommSocketToServiceRecord(BTMODULEUUID)
@@ -268,7 +268,7 @@ class BluetoothActivity : AppCompatActivity() {
         } catch (e: IOException){}
     }
 
-    /*//Checks that the Android device Bluetooth is available and prompts to be turned on if off
+    //Checks that the Android device Bluetooth is available and prompts to be turned on if off
     private fun checkBTState(){
         // Check device has Bluetooth and that it is turned on
         mBtAdapter = BluetoothAdapter.getDefaultAdapter()// CHECK THIS OUT THAT IT WORKS!!!
@@ -279,7 +279,7 @@ class BluetoothActivity : AppCompatActivity() {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(enableBtIntent, 1)
         }
-    }*/
+    }
 
     private fun addObserver() {
         treeInformationViewModel.getAllHoursInformation().observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->

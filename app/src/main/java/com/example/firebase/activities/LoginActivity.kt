@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
     private fun isLoguing(){
         if(isLoguin){
             checkBTState()
-            //Handler().postDelayed({startActivity(Intent(this, BluetoothActivity::class.java))}, 2000)
+            startActivity(Intent(this, BluetoothActivity::class.java))
         }
     }
 
@@ -154,7 +154,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        //startActivity(Intent(this, BluetoothActivity::class.java))
+        startActivity(Intent(this, BluetoothActivity::class.java))
         password.text.clear()
         email.text.clear()
     }
