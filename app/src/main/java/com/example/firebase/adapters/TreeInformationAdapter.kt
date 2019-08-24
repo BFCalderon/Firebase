@@ -8,6 +8,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebase.R
+import com.example.firebase.math.MathUtility
 import com.example.firebase.utils.ConstantValues
 import com.example.firebase.valueobjects.DateInformationVO
 import kotlinx.android.synthetic.main.child_year_month.view.*
@@ -18,7 +19,10 @@ class TreeInformationAdapter(items: ArrayList<DateInformationVO>): RecyclerView.
     var viewHolder: ViewHolder? = null
     var iNotifyItemSelected: INotifyItemSelected ?= null
     private var constantValues: ConstantValues = ConstantValues()
+    private var mathUtility: MathUtility = MathUtility()
     var isMonth = false
+    var isDay = false
+    var isHour = false
 
     init {
         this.items = items
@@ -36,10 +40,16 @@ class TreeInformationAdapter(items: ArrayList<DateInformationVO>): RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items?.get(position)
-        holder.titleName.text = if(!isMonth) item?.date.toString() else constantValues!!.getStringMont(item?.date.toString().toInt())
-        holder.powerValue.text = "${item?.power.toString()} W"
-        holder.eficiencyValue.text = "${item?.efficiency.toString()} %"
-        holder.eficiencyBar.progress = item?.efficiency!!.toInt()
+        val subtitle = when{
+            isMonth -> constantValues.getStringMont(item?.date.toString().toInt())
+            isDay -> "DIA " + item?.date.toString()
+            isHour -> item?.date.toString() + " : 00"
+            else -> item?.date.toString()
+        }
+        holder.titleName.text = subtitle
+        holder.powerValue.text = "${mathUtility.roundDouble(item?.power!!.toDouble(), 2).toString()} W"
+        holder.eficiencyValue.text = "${mathUtility.roundDouble(item?.efficiency!!.toDouble(), 2).toString()} %"
+        holder.eficiencyBar.progress = item.efficiency!!.toInt()
 
         holder.parent.setOnClickListener {view->
             iNotifyItemSelected!!.sendChangeCoor(item.date.toString())

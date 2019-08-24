@@ -119,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
                         isLoguin = true
                         isLoguing()
                         //updateDataInFirebase()
-                        readDataFromFirebase()
+                        //readDataFromFirebase()
                     } else {
                         Toast.makeText(this, "ERROR DE AUTENTICACION", Toast.LENGTH_SHORT).show()
                         progresVarLoguin.visibility = View.INVISIBLE
@@ -147,8 +147,8 @@ class LoginActivity : AppCompatActivity() {
                         val userBDHoras = database.getReference("ARBOL ENERGETICO").child(años).child(mes.toString()).child(dias.toString())
                         userBDHoras.child(horas.toString()).setValue(horas)
                         val userBDInformationByHours = database.getReference("ARBOL ENERGETICO").child(años).child(mes.toString()).child(dias.toString()).child(horas.toString())
-                        userBDInformationByHours.child("POTENCIA").setValue(0.654f + Random().nextInt(0..100))
-                        userBDInformationByHours.child("EFICIENCIA").setValue(0.123f + Random().nextInt(0..1000))
+                        userBDInformationByHours.child("EFICIENCIA").setValue(0.123f + Random().nextInt(0..100))
+                        userBDInformationByHours.child("POTENCIA").setValue(0.654f + Random().nextInt(0..1000))
                     }
                 }
             }
@@ -253,20 +253,21 @@ class LoginActivity : AppCompatActivity() {
                         yearsInFirebase.add(
                         DateInformationVO(
                             date = keyYear.key.toString().toInt(),
-                            efficiency = powerYear,
-                            power = eficiencyYear
+                            efficiency = eficiencyYear,
+                            power = powerYear
                         )
                     )
                 }
+                //treeInformationViewModel.deleteYearInformation(2019)
                 //treeInformationViewModel.cleanTableHours()
                 //treeInformationViewModel.cleanTableDays()
                 //treeInformationViewModel.cleanTableMonths()
                 //treeInformationViewModel.cleanTableYears()
-
+                //treeInformationViewModel.deleteYearInformation(2019)
                 //yearsInFirebase.sortBy { DateInformationVO -> DateInformationVO.date }//Ejemplo de ordenar un array por tipo de elemento
+
                 yearsInFirebase.forEach {
                     treeInformationViewModel.saveYearInformation(it)
-                    //treeInformationViewModel.deleteYearInformation(2019)
                 }
                 monthsInFirebase.forEach {
                     treeInformationViewModel.saveMonthInformation(it)
@@ -277,8 +278,6 @@ class LoginActivity : AppCompatActivity() {
                 hourInFirebase.forEach {
                     treeInformationViewModel.saveHoursInformation(it)
                 }
-                //treeInformationViewModel.deleteYearInformation(2019)
-
             }
             override fun onCancelled(error: DatabaseError){}
         })

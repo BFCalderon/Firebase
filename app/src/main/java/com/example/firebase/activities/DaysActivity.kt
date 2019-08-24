@@ -48,6 +48,9 @@ class DaysActivity : AppCompatActivity(), TreeInformationAdapter.INotifyItemSele
     private fun startRecycler(monthsList: ArrayList<DateInformationVO>){
         adapterInformationDates = TreeInformationAdapter(monthsList)
         adapterInformationDates!!.isMonth = false
+        adapterInformationDates!!.isDay = true
+        adapterInformationDates!!.isHour = false
+
         recyclerDateInfBD = recyclerDays
         recyclerDateInfBD!!.layoutManager = LinearLayoutManager(this)
         recyclerDateInfBD!!.adapter = this.adapterInformationDates

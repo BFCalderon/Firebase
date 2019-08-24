@@ -45,6 +45,8 @@ class MonthsActivity : AppCompatActivity(), TreeInformationAdapter.INotifyItemSe
     private fun startRecycler(monthsList: ArrayList<DateInformationVO>){
         adapterInformationDates = TreeInformationAdapter(monthsList)
         adapterInformationDates!!.isMonth = true
+        adapterInformationDates!!.isDay = false
+        adapterInformationDates!!.isHour = false
 
         recyclerDateInfBD = recyclerMonths
         recyclerDateInfBD!!.layoutManager = LinearLayoutManager(this)
