@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
     private fun isLoguing(){
         if(isLoguin){
             checkBTState()
-            Handler().postDelayed({startActivity(Intent(this, BluetoothActivity::class.java))}, 2000)
+            //Handler().postDelayed({startActivity(Intent(this, BluetoothActivity::class.java))}, 2000)
         }
     }
 
@@ -119,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
                         isLoguin = true
                         isLoguing()
                         //updateDataInFirebase()
-                        //readDataFromFirebase()
+                        readDataFromFirebase()
                     } else {
                         Toast.makeText(this, "ERROR DE AUTENTICACION", Toast.LENGTH_SHORT).show()
                         progresVarLoguin.visibility = View.INVISIBLE
@@ -154,7 +154,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        startActivity(Intent(this, BluetoothActivity::class.java))
+        //startActivity(Intent(this, BluetoothActivity::class.java))
         password.text.clear()
         email.text.clear()
     }
@@ -178,41 +178,28 @@ class LoginActivity : AppCompatActivity() {
                 val sorted = jsonTreeInformation.toList() .sortedBy { (key, value) -> key.toString() }.toMap()
                 for (keyYear in sorted) {
                     yearIterator++
-                    yearsInFirebase.add(
-                        DateInformationVO(
-                            date = keyYear.key.toString().toInt(),
-                            efficiency = 1.3f,
-                            power = 1.5f
-                        )
-                    )
+                    //-----
+                    var powerYear = 0f
+                    var eficiencyYear = 0f
+
                     val year = keyYear.value as ArrayList<*>
                     var monthIterator = 0
                     year.removeAt(0)
                     year.forEach { months ->
                         monthIterator++
-                        monthsInFirebase.add(
-                            DateInformationVO(
-                                foreingKey = yearIterator,
-                                date = monthIterator,
-                                power = 2.6f,
-                                efficiency = 2.8f
-                            )
-                        )
+                        var powerMonth = 0f
+                        var eficiencyMonth = 0f
+
                         val month = months as ArrayList<ArrayList<HashMap<*, *>>>
                         var daysIterator = 0
                         month.removeAt(0)//Como los dias siempre son numeros mayores a 1, firebase retorna la posicion cero nula
                         month.forEach { days ->
                             daysIterator++
-                            daysInFirebase.add(
-                                DateInformationVO(
-                                    foreingKey = monthIterator,
-                                    foreingKey1 = yearIterator,
-                                    date = daysIterator,
-                                    efficiency = 3.9f,
-                                    power = 3.3f
-                                )
-                            )
+
                             var hourIterator = 0
+                            var powerDay = 0f
+                            var eficiencyDay = 0f
+
                             days.forEach { hour ->
                                 hourIterator++
                                 val potEfi: ArrayList<Float> = ArrayList()
@@ -221,7 +208,6 @@ class LoginActivity : AppCompatActivity() {
                                     keyHour.value.toString()
                                     potEfi.add(keyHour.value.toString().toFloat())
                                 }
-
                                 hourInFirebase.add(
                                     DateInformationVO(
                                         foreingKey = daysIterator,
@@ -232,10 +218,81 @@ class LoginActivity : AppCompatActivity() {
                                         efficiency = potEfi[0]
                                     )
                                 )
+                                powerDay += potEfi[1]
+                                eficiencyDay += potEfi[0]
                             }
+                            powerDay /= hourIterator
+                            eficiencyDay /= hourIterator
+                            daysInFirebase.add(
+                                DateInformationVO(
+                                    foreingKey = monthIterator,
+                                    foreingKey1 = yearIterator,
+                                    date = daysIterator,
+                                    efficiency = eficiencyDay,
+                                    power = powerDay
+                                )
+                            )
+                            powerMonth += powerDay
+                            eficiencyMonth += eficiencyDay
+
                         }
+                        powerMonth /= monthIterator
+                        eficiencyMonth /= monthIterator
+                        monthsInFirebase.add(
+                            DateInformationVO(
+                                foreingKey = yearIterator,
+                                date = monthIterator,
+                                power = powerMonth,
+                                efficiency = eficiencyMonth
+                            )
+                        )
+                        powerYear += powerMonth
+                        eficiencyYear += eficiencyMonth
                     }
+                    powerYear /= yearIterator
+                    eficiencyYear /= yearIterator
+                        yearsInFirebase.add(
+                        DateInformationVO(
+                            date = keyYear.key.toString().toInt(),
+                            efficiency = powerYear,
+                            power = eficiencyYear
+                        )
+                    )
                 }
+
+                /*var informationPerDay: ArrayList<DateInformationVO> = ArrayList()
+                val divFactor: ArrayList<Int> = ArrayList()
+
+                daysInFirebase.forEach {
+                    informationPerDay!!.add(
+                        DateInformationVO(
+                            efficiency = 0f,
+                            power = 0f
+                        )
+                    )
+                    divFactor.add(0)
+                }
+
+                for(i in 0 until hourInFirebase.size){
+                    divFactor[hourInFirebase[i].foreingKey!!-1]+=1
+
+                    informationPerDay[hourInFirebase[i].foreingKey!!-1].power =
+                        informationPerDay[hourInFirebase[i].foreingKey!!-1].power?.plus(hourInFirebase[i].power!! )
+                    informationPerDay[hourInFirebase[i].foreingKey!!-1].efficiency =
+                        informationPerDay[hourInFirebase[i].foreingKey!!-1].efficiency?.plus(hourInFirebase[i].efficiency!!)
+                }
+                for(i in 0 until informationPerDay!!.size){
+                    informationPerDay[i].power = informationPerDay[i].power!!.div(divFactor[i])
+                }
+
+                informationPerDay*/
+
+                Toast.makeText(applicationContext, "pasó", Toast.LENGTH_SHORT).show()
+                hourInFirebase
+                daysInFirebase
+                monthsInFirebase
+                yearsInFirebase
+
                 //yearsInFirebase.sortBy { DateInformationVO -> DateInformationVO.date }//Ejemplo de ordenar un array por tipo de elemento
                 yearsInFirebase.forEach {
                     treeInformationViewModel.saveYearInformation(it)

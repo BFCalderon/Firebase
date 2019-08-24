@@ -10,6 +10,11 @@ class DateInformationVO {
     var power: Float? = null
     var efficiency: Float? = null
 
+    constructor(power: Float?, efficiency: Float?) {
+        this.date = date
+        this.power = power
+    }
+
     constructor(date: Int?, power: Float?, efficiency: Float?){
         this.date = date
         this.power = power
@@ -44,4 +49,5 @@ class DateInformationVO {
         this.power = power
         this.efficiency = efficiency
     }
+    constructor()
 }
