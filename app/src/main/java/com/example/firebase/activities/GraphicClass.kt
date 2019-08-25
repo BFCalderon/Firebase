@@ -69,8 +69,8 @@ class GraphicClass : AppCompatActivity() {
     private val open = listOf(4, 7,  6,  6,  2)
     //Cerra
     private val close = listOf(6, 4,  8,  3,  5)
-
 */
+
     //Colors
     private val colors = listOf(/*Color.BLACK,*/R.color.colorPrimaryDark/*,Color.GREEN,Color.BLUE,Color.LTGRAY*/)
     private val sale = listOf(25,20,38,10,15)
