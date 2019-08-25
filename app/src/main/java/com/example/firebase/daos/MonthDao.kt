@@ -30,7 +30,7 @@ interface MonthDao {
                 " = " + MonthEntity.FOREING_KEY +
                 " AND " + YearEntity.YEAR + "=:year"
     )
-    fun getMonths(year: Int): LiveData<List<MonthEntity>>*/
+    fun getYears(year: Int): LiveData<List<MonthEntity>>*/
 
     @Query(
         "SELECT * " +

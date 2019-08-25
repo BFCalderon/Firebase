@@ -79,8 +79,8 @@ class LoginActivity : AppCompatActivity() {
         alertDialog.setPositiveButton("SI") { _, _ ->
             //startActivity(Intent(this, RecyclerExpandable::class.java))
             // Pasaremos de la actividad actual a OtraActivity
-            //startActivity(Intent(this, YearsActivity::class.java))
-            startActivity(Intent(this, GraphicClass::class.java))
+            startActivity(Intent(this, YearsActivity::class.java))
+            //startActivity(Intent(this, GraphicClass::class.java))
         }
         alertDialog.setNegativeButton("NO") { _, _ ->
             Toast.makeText(this, "SI NO TIENE UN CUENTA POR FAVOR REGISTRESE!", Toast.LENGTH_LONG).show()
