@@ -218,7 +218,7 @@ class BluetoothActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        closeBluetooth()
+        //closeBluetooth()
     }
 
     override fun onDestroy() {
@@ -229,11 +229,11 @@ class BluetoothActivity : AppCompatActivity() {
 
     private fun closeBluetooth(){
         try {
-            //Don't leave Bluetooth sockets open when leaving activity
-            mConnectedThread!!.interrupt()
             btSocket!!.close()
-        } catch (e2: IOException) {
-        }
+        } catch (e2: IOException) {}
+        try{
+            mConnectedThread!!.interrupt()
+        }catch (e2: IOException){}
     }
 
     private fun conectBluetoothManager(): Boolean{
@@ -245,12 +245,12 @@ class BluetoothActivity : AppCompatActivity() {
                 conection = true
             } catch ( e: IOException) {
                 Toast.makeText(this, "LA CREACION DEL SOCKED FALLÓ", Toast.LENGTH_LONG).show()
-                /*try {
+                try {
                     mConnectedThread!!.interrupt()
                 } catch (e2: IOException) {}
                 try {
                     btSocket?.close()
-                }catch (e: IOException){}*/
+                }catch (e: IOException){}
             }
         } while (!conection)
         return conection
