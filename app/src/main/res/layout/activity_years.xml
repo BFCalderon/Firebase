@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".activities.YearsActivity">
 
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,52 +36,71 @@
         </View>
     </LinearLayout>
 
-    <com.github.mikephil.charting.charts.BarChart
+    <ScrollView
+            android:orientation="vertical"
+            android:id="@+id/scrollContent"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_weight="1"
-            android:id="@+id/barChartYears"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/linearContent"
             android:orientation="vertical"
-            android:id="@+id/linearBarDescription"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/barChartYears">
-
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorPrimaryDark">
-        </View>
-        <TextView
-                android:textStyle="bold"
-                android:textSize="10dp"
-                android:gravity="center"
-                android:text="GRAFICA DE RELACION: EFICIENCIA - AÑOS"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorPrimaryDark">
-        </View>
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerYears"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/linearBarDescription"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_height="match_parent">
+
+        <com.github.mikephil.charting.charts.BarChart
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_weight="1"
+                android:id="@+id/barChartYears"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="30dp"
+        />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/linearBarDescription"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/barChartYears">
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimaryDark">
+            </View>
+            <TextView
+                    android:textStyle="bold"
+                    android:textSize="10dp"
+                    android:gravity="center"
+                    android:text="GRAFICA DE RELACION: EFICIENCIA - AÑOS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimaryDark">
+            </View>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerYears"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@+id/linearBarDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"/>
+
+    </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

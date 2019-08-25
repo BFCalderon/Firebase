@@ -101,7 +101,7 @@ class DaysActivity : AppCompatActivity(), TreeInformationAdapter.INotifyItemSele
         val barDataSet = getDataSame(BarDataSet(getBarEntries(), "Brayan")) as BarDataSet
         barDataSet.barShadowColor = Color.argb(50,96,124,97)
         val barData = BarData(barDataSet)
-        barData.barWidth = 0.4f
+        barData.barWidth = 0.5f
         return barData
     }
 
