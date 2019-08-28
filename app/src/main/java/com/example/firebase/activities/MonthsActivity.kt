@@ -57,6 +57,8 @@ class MonthsActivity : AppCompatActivity(), TreeInformationAdapter.INotifyItemSe
     }
 
     private fun startRecycler(monthsList: ArrayList<DateInformationVO>){
+        months.clear()
+        eficiency.clear()
         monthsList.forEach {month->
             this.months.add(constantValues.getStringMont(month.date!!))
             this.eficiency.add(month.efficiency!!.toInt())

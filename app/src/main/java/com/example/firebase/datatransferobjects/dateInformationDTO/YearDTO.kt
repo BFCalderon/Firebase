@@ -8,7 +8,7 @@ import com.example.firebase.valueobjects.DateInformationVO
 object YearDTO : GenericDataTransferObject<YearEntity, DateInformationVO>() {
     override fun dataToObject(entity: YearEntity): DateInformationVO {
         return DateInformationVO(
-            entity.yearId,
+            entity.yearId!!,
             entity.year,
             entity.power,
             entity.efficiency

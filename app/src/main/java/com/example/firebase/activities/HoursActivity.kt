@@ -58,6 +58,8 @@ class HoursActivity : AppCompatActivity(), TreeInformationAdapter.INotifyItemSel
             })
     }
     private fun startRecycler(monthsList: ArrayList<DateInformationVO>){
+        this.hours.clear()
+        this.eficiency.clear()
         monthsList.forEach { year->
             this.hours.add(year.date.toString()+" : 00")
             this.eficiency.add(year.efficiency!!.toInt())

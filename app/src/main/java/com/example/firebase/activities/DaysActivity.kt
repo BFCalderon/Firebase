@@ -58,6 +58,8 @@ class DaysActivity : AppCompatActivity(), TreeInformationAdapter.INotifyItemSele
     }
 
     private fun startRecycler(daysList: ArrayList<DateInformationVO>){
+        days.clear()
+        eficiency.clear()
         daysList.forEach { year->
             this.days.add(year.date.toString())
             this.eficiency.add(year.efficiency!!.toInt())

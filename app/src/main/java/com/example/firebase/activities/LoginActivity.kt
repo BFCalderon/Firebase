@@ -176,6 +176,9 @@ class LoginActivity : AppCompatActivity() {
                 val daysInFirebase: ArrayList<DateInformationVO> = ArrayList()
                 val hourInFirebase: ArrayList<DateInformationVO> = ArrayList()
                     var yearIterator = 0
+                    var monthPrimaryKey = 0
+                    var dayPrimaryKey = 0
+                    var hourPrimaryKey = 0
                 val sorted = jsonTreeInformation.toList() .sortedBy { (key, value) -> key.toString() }.toMap()
                 for (keyYear in sorted) {
                     yearIterator++
@@ -209,8 +212,10 @@ class LoginActivity : AppCompatActivity() {
                                     keyHour.value.toString()
                                     potEfi.add(keyHour.value.toString().toFloat())
                                 }
+                                hourPrimaryKey++
                                 hourInFirebase.add(
                                     DateInformationVO(
+                                        primaryKey = hourPrimaryKey,
                                         foreingKey = daysIterator,
                                         foreingKey1 = monthIterator,
                                         foreingKey2 = yearIterator,
@@ -224,8 +229,10 @@ class LoginActivity : AppCompatActivity() {
                             }
                             powerDay /= hourIterator
                             eficiencyDay /= hourIterator
+                            dayPrimaryKey++
                             daysInFirebase.add(
                                 DateInformationVO(
+                                    primaryKey = dayPrimaryKey,
                                     foreingKey = monthIterator,
                                     foreingKey1 = yearIterator,
                                     date = daysIterator,
@@ -238,8 +245,10 @@ class LoginActivity : AppCompatActivity() {
                         }
                         powerMonth /= daysIterator
                         eficiencyMonth /= daysIterator
+                        monthPrimaryKey++
                         monthsInFirebase.add(
                             DateInformationVO(
+                                primaryKey = monthPrimaryKey,
                                 foreingKey = yearIterator,
                                 date = monthIterator,
                                 power = powerMonth,

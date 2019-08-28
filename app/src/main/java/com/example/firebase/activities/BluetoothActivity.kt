@@ -42,8 +42,8 @@ class BluetoothActivity : AppCompatActivity() {
     //Variable para reproducir el video
     private lateinit var videoTree: VideoView
 
-    //Informacion en la base de datos
-    var dateInfoBD: ArrayList<DateInformationVO> ?= ArrayList()
+    /*//Informacion en la base de datos
+    var dateInfoBD: ArrayList<DateInformationVO> ?= ArrayList()*/
     //Adapter
     private var adapterInformationDates: TreeInformationAdapter ?= null
     private var recyclerDateInfBD: RecyclerView ?= null
@@ -126,7 +126,7 @@ class BluetoothActivity : AppCompatActivity() {
             ViewModelProviders.of(this).get(TreeInformationViewModel::class.java)
         }
         //addTreeInformation()
-        Handler().postDelayed({ addObserver()},100)
+        //Handler().postDelayed({ addObserver()},100)
         //SqlLite End
 
         initButons()
@@ -229,7 +229,9 @@ class BluetoothActivity : AppCompatActivity() {
 
     private fun closeBluetooth(){
         try {
-            btSocket!!.close()
+            if (btSocket!!.isConnected) {
+                btSocket!!.close()
+            }
         } catch (e2: IOException) {}
         try{
             mConnectedThread!!.interrupt()
@@ -281,14 +283,14 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
-    private fun addObserver() {
+    /*private fun addObserver() {
         treeInformationViewModel.getAllHoursInformation().observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->
             dateInfoBD!!.clear()
             dateInf.forEach {
                 dateInfoBD!!.add(it)
             }
         })
-    }
+    }*/
 
     private fun Random.nextInt(range: IntRange): Int {
         return range.start + nextInt(range.last - range.first)

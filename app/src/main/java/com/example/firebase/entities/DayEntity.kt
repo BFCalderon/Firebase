@@ -5,15 +5,17 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = DayEntity.TABLE_NAME)
-data class DayEntity(@ColumnInfo(name = FOREING_KEY) var foreingKey: Int?,
+data class DayEntity(@PrimaryKey @ColumnInfo(name = DAY_ID) var dayId: Int?,
+
+                     @ColumnInfo(name = FOREING_KEY) var foreingKey: Int?,
                      @ColumnInfo(name = FOREING_KEY_1) var foreingKey1: Int?,
                      @ColumnInfo(name = DAY) var day: Int?,
                      @ColumnInfo(name = POWER) var power: Float?,
                      @ColumnInfo(name = EFFICIENCY) var efficiency: Float?){
 
-    @PrimaryKey(autoGenerate = true)
+    /*@PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = DAY_ID)
-    var dayId: Int = 0
+    var dayId: Int = 0*/
 
     companion object {
         const val TABLE_NAME = "DAY"

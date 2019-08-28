@@ -9,7 +9,7 @@ object DayDTO: GenericDataTransferObject<DayEntity, DateInformationVO>() {
 
     override fun dataToObject(entity: DayEntity): DateInformationVO {
         return DateInformationVO(
-            entity.dayId,
+            entity.dayId!!,
             entity.day,
             entity.power,
             entity.efficiency)
@@ -17,6 +17,7 @@ object DayDTO: GenericDataTransferObject<DayEntity, DateInformationVO>() {
 
     override fun objectToData(objectVO: DateInformationVO): DayEntity {
         return DayEntity(
+            objectVO.primaryKey,
             objectVO.foreingKey,
             objectVO.foreingKey1,
             objectVO.date,
@@ -30,7 +31,7 @@ object DayDTO: GenericDataTransferObject<DayEntity, DateInformationVO>() {
 
     fun getInformationDate(dateInformation: DayEntity): DateInformationVO {
         return DateInformationVO(
-            primaryKey = dateInformation.dayId,
+            primaryKey = dateInformation.dayId!!,
             date = dateInformation.day,
             power = dateInformation.power,
             efficiency = dateInformation.efficiency
