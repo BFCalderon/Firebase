@@ -9,6 +9,7 @@ object HourDTO: GenericDataTransferObject<HourEntity, DateInformationVO>() {
 
     override fun dataToObject(entity: HourEntity): DateInformationVO {
         return DateInformationVO(
+            entity.hourId,
             entity.hour,
             entity.power,
             entity.efficiency
@@ -31,6 +32,7 @@ object HourDTO: GenericDataTransferObject<HourEntity, DateInformationVO>() {
 
     fun getInformationDate(dateInformation: HourEntity): DateInformationVO {
         return DateInformationVO(
+            primaryKey = dateInformation.hourId,
             date = dateInformation.hour,
             power = dateInformation.power,
             efficiency = dateInformation.efficiency

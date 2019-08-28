@@ -2,6 +2,7 @@ package com.example.firebase.valueobjects
 
 class DateInformationVO {
 
+    var primaryKey: Int ?= null
     var foreingKey: Int ?= null
     var foreingKey1: Int ?= null
     var foreingKey2: Int ?= null
@@ -15,7 +16,8 @@ class DateInformationVO {
         this.power = power
     }
 
-    constructor(date: Int?, power: Float?, efficiency: Float?){
+    constructor(primaryKey: Int, date: Int?, power: Float?, efficiency: Float?){
+        this.primaryKey = primaryKey
         this.date = date
         this.power = power
         this.efficiency = efficiency

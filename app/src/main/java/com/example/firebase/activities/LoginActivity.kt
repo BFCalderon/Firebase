@@ -120,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
                         isLoguin = true
                         isLoguing()
                         //updateDataInFirebase()
-                        //readDataFromFirebase()
+                        readDataFromFirebase()
                     } else {
                         Toast.makeText(this, "ERROR DE AUTENTICACION", Toast.LENGTH_SHORT).show()
                         progresVarLoguin.visibility = View.INVISIBLE
@@ -253,6 +253,7 @@ class LoginActivity : AppCompatActivity() {
                     eficiencyYear /= monthIterator
                         yearsInFirebase.add(
                         DateInformationVO(
+                            primaryKey = yearIterator,
                             date = keyYear.key.toString().toInt(),
                             efficiency = eficiencyYear,
                             power = powerYear

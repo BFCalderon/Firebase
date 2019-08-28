@@ -297,13 +297,13 @@ class BluetoothActivity : AppCompatActivity() {
     private fun addTreeInformation() {
         //for(i in 1..10){}
         //treeInformationViewModel.saveTreeInformation(DateInformationVO("${i+1}/08/2019","$i:19",i*10.5498f))
+        var iterator = 0
+        for(i in 2019..2024) treeInformationViewModel.saveYearInformation(DateInformationVO(iterator++, i+0,i*0.7f, Random().nextInt(0..100).toFloat()+0f))
 
-        for(i in 2019..2024) treeInformationViewModel.saveYearInformation(DateInformationVO(i+0,i*0.7f, Random().nextInt(0..100).toFloat()+0f))
+        for(i in 0..11) treeInformationViewModel.saveMonthInformation(DateInformationVO(iterator++,meses[i],i*0.3f, Random().nextInt(0..100).toFloat()))
 
-        for(i in 0..11) treeInformationViewModel.saveMonthInformation(DateInformationVO(meses[i],i*0.3f, Random().nextInt(0..100).toFloat()))
+        for(i in 1..31) treeInformationViewModel.saveDaysInformation(DateInformationVO(iterator++,i,Random().nextInt(0..50).toFloat(), Random().nextInt(0..100).toFloat()))
 
-        for(i in 1..31) treeInformationViewModel.saveDaysInformation(DateInformationVO(i,Random().nextInt(0..50).toFloat(), Random().nextInt(0..100).toFloat()))
-
-        for(i in 0..23) treeInformationViewModel.saveHoursInformation(DateInformationVO(i,Random().nextInt(0..50).toFloat(), Random().nextInt(0..100).toFloat()))
+        for(i in 0..23) treeInformationViewModel.saveHoursInformation(DateInformationVO(iterator++,i,Random().nextInt(0..50).toFloat(), Random().nextInt(0..100).toFloat()))
     }
 }

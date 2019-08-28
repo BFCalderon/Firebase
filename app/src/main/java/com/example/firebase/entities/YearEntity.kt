@@ -5,13 +5,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = YearEntity.TABLE_NAME)
-data class YearEntity(
+data class YearEntity(  @PrimaryKey @ColumnInfo(name = YEAR_ID) var yearId: Int?,
                         @ColumnInfo(name = YEAR) var year: Int?,
                         @ColumnInfo(name = POWER) var power: Float?,
                         @ColumnInfo(name = EFFICIENCY) var efficiency: Float?){
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = YEAR_ID) var yearId: Int = 0
+    /*@PrimaryKey
+    @ColumnInfo(name = YEAR_ID) var yearId: Int = 1*/
 
     companion object {
         const val TABLE_NAME = "YEAR"
