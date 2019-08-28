@@ -69,6 +69,7 @@ class HoursActivity : AppCompatActivity(), TreeInformationAdapter.INotifyItemSel
         adapterInformationDates!!.isMonth = false
         adapterInformationDates!!.isDay = false
         adapterInformationDates!!.isHour = true
+        
 
         recyclerDateInfBD = recyclerHours
         recyclerDateInfBD!!.layoutManager = LinearLayoutManager(this)
