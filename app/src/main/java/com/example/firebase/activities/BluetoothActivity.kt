@@ -106,7 +106,7 @@ class BluetoothActivity : AppCompatActivity() {
                 }
                 Handler().postDelayed({mmOutStream!!.write(254)},1)
                 //mmOutStream!!.write(msgBuffer)                //write bytes over BT connection via outstream
-            } catch (e: IOException) {
+            } catch (e: IOException){
                 //if you cannot write, close the application
                 Toast.makeText(baseContext, "La Conexión fallo", Toast.LENGTH_LONG).show()
                 finish()
@@ -134,9 +134,7 @@ class BluetoothActivity : AppCompatActivity() {
         initVideo()
 
         try {
-            while(!conectBluetoothManager()){
-
-            }
+            while(!conectBluetoothManager()){}
             Toast.makeText(this, "CONECTADO", Toast.LENGTH_SHORT).show()
         }catch ( e: IOException){
             Toast.makeText(this, "NO SE PUDO CONECTAR", Toast.LENGTH_SHORT).show()
