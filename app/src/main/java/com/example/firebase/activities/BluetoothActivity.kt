@@ -134,7 +134,9 @@ class BluetoothActivity : AppCompatActivity() {
         initVideo()
 
         try {
-            while(!conectBluetoothManager()){}
+            while(!conectBluetoothManager()){
+
+            }
             Toast.makeText(this, "CONECTADO", Toast.LENGTH_SHORT).show()
         }catch ( e: IOException){
             Toast.makeText(this, "NO SE PUDO CONECTAR", Toast.LENGTH_SHORT).show()
