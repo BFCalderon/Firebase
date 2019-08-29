@@ -141,11 +141,11 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="VADC 1: ">
+                            android:text="V. PANEL: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc1"
@@ -166,11 +166,11 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:layout_marginLeft="50dp"
-                            android:text="VADC 2: ">
+                            android:text="V. AERO: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc2"
@@ -191,11 +191,11 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:layout_marginLeft="50dp"
-                            android:text="VADC 3: ">
+                            android:text="V. BAT: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc3"
@@ -216,11 +216,11 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="VADC 4: ">
+                            android:text="V. LOAD: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc4"
@@ -241,11 +241,11 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="VADC 5: ">
+                            android:text="VCC: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc5"
@@ -266,11 +266,11 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="VADC 6: ">
+                            android:text="I. IN: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc6"
@@ -291,11 +291,11 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="VADC 7: ">
+                            android:text="I. BAT: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc7"
@@ -317,11 +317,11 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="VADC 8: ">
+                            android:text="I. LOAD: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc8"
@@ -343,11 +343,11 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="EEPROM: ">
+                            android:text="POTENCIA: ">
                     </TextView>
                     <TextView
                             android:id="@+id/eeprom"
@@ -369,7 +369,7 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
@@ -394,7 +394,7 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
@@ -408,6 +408,15 @@
                             android:layout_gravity="center_vertical"
                             android:text="">
                     </TextView>
+
+                    <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_buttons"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|end"
+                            android:layout_marginEnd="270dp"
+                            android:layout_marginRight="270dp"
+                            android:layout_marginBottom="712dp" />
                 </LinearLayout>
 
                 <LinearLayout
