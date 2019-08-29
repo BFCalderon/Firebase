@@ -41,20 +41,10 @@ class BluetoothActivity : AppCompatActivity() {
 
     //Variable para reproducir el video
     private lateinit var videoTree: VideoView
-
-    /*//Informacion en la base de datos
-    var dateInfoBD: ArrayList<DateInformationVO> ?= ArrayList()*/
-    //Adapter
-    private var adapterInformationDates: TreeInformationAdapter ?= null
-    private var recyclerDateInfBD: RecyclerView ?= null
-    //BD
     private lateinit var treeInformationViewModel: TreeInformationViewModel
 
-    // EXTRA string to send on to mainactivity
-    private val EXTRA_DEVICE_ADDRESS = "device_address"
     // Member fields
     private lateinit var mBtAdapter: BluetoothAdapter
-    private lateinit var mPairedDevicesArrayAdapter: ArrayAdapter<String>
     private var btSocket: BluetoothSocket ?= null
     // SPP UUID service - this should work for most devices
     private val BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
@@ -125,10 +115,6 @@ class BluetoothActivity : AppCompatActivity() {
         treeInformationViewModel = run {
             ViewModelProviders.of(this).get(TreeInformationViewModel::class.java)
         }
-        //addTreeInformation()
-        //Handler().postDelayed({ addObserver()},100)
-        //SqlLite End
-
         initButons()
         initBTReciberListener()
         initVideo()
@@ -194,7 +180,7 @@ class BluetoothActivity : AppCompatActivity() {
                             }
                             recDataString.delete(0, recDataString.length)
                             if (recDataString.indexOf("~") > 0) {                                           // make sure there data before ~
-                                testView1.text = "Tamaño del String = ${recDataString.length}"
+                                //testView1.text = "Tamaño del String = ${recDataString.length}"
                                 recDataString.delete(0, recDataString.length)                 //clear all string data
                             }
                         }
