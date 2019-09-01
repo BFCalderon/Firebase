@@ -9,7 +9,7 @@
     <RelativeLayout
             android:id="@+id/relativeCharging"
             android:layout_width="match_parent"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_height="match_parent">
 
         <VideoView
@@ -84,7 +84,7 @@
             android:id="@+id/relativeInformation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible">
+            android:visibility="gone">
 
         <LinearLayout
                 android:id="@+id/linear1"
@@ -141,11 +141,11 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="V. PANEL: ">
+                            android:text="VOLTAJE DEL PANEL: "
+                            android:layout_weight="1">
                     </TextView>
                     <TextView
                             android:id="@+id/adc1"
@@ -153,6 +153,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
                             android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
                             android:text="">
                     </TextView>
                 </LinearLayout>
@@ -166,17 +167,18 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:layout_marginLeft="50dp"
-                            android:text="V. AERO: ">
+                            android:layout_weight="1"
+                            android:text="VOLTAJE DE ENTRADA: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:layout_gravity="center_vertical"
                             android:text="">
                     </TextView>
@@ -191,11 +193,11 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:layout_marginLeft="50dp"
-                            android:text="V. BAT: ">
+                            android:layout_weight="1"
+                            android:text="VOLTAJE. BATERIA: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc3"
@@ -203,6 +205,7 @@
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
                             android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
                             android:text="">
                     </TextView>
                 </LinearLayout>
@@ -216,17 +219,18 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="V. LOAD: ">
+                            android:layout_weight="1"
+                            android:text="VOLTAJE DE LA CARGA: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:layout_gravity="center_vertical"
                             android:text="">
                     </TextView>
@@ -241,9 +245,9 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="50dp"
+                            android:layout_weight="1"
                             android:gravity="center"
                             android:text="VCC: ">
                     </TextView>
@@ -252,6 +256,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:layout_gravity="center_vertical"
                             android:text="">
                     </TextView>
@@ -266,17 +271,18 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="I. IN: ">
+                            android:layout_weight="1"
+                            android:text="CORRIENTE DE ENTRADA: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc6"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:layout_gravity="center_vertical"
                             android:text="">
                     </TextView>
@@ -291,17 +297,18 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="I. BAT: ">
+                            android:layout_weight="1"
+                            android:text="CORRIENTE DE CARGA: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc7"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:layout_gravity="center_vertical"
                             android:text="">
                     </TextView>
@@ -317,17 +324,18 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="I. LOAD: ">
+                            android:layout_weight="1"
+                            android:text="CORRIENTE DE SALIDA: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc8"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:layout_gravity="center_vertical"
                             android:text="">
                     </TextView>
@@ -343,17 +351,18 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="50dp"
+                            android:layout_weight="1"
                             android:gravity="center"
-                            android:text="POTENCIA: ">
+                            android:text="POTENCIA INSTANTANEA: ">
                     </TextView>
                     <TextView
                             android:id="@+id/eeprom"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:layout_gravity="center_vertical"
                             android:text="">
                     </TextView>
@@ -369,17 +378,18 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="50dp"
+                            android:layout_weight="1"
                             android:gravity="center"
-                            android:text="HORA: ">
+                            android:text="EFICIENCIA: ">
                     </TextView>
                     <TextView
                             android:id="@+id/rtcHour"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:layout_gravity="center_vertical"
                             android:text="">
                     </TextView>
@@ -394,9 +404,9 @@
                         android:orientation="horizontal"
                         android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="50dp"
+                            android:layout_weight="1"
                             android:gravity="center"
                             android:text="FECHA: ">
                     </TextView>
@@ -405,18 +415,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:layout_gravity="center_vertical"
                             android:text="">
                     </TextView>
 
-                    <android.support.v7.widget.RecyclerView
-                            android:id="@+id/recycler_buttons"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|end"
-                            android:layout_marginEnd="270dp"
-                            android:layout_marginRight="270dp"
-                            android:layout_marginBottom="712dp" />
                 </LinearLayout>
 
                 <LinearLayout
