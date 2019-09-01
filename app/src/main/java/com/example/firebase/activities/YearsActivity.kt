@@ -48,6 +48,8 @@ class YearsActivity : AppCompatActivity(), TreeInformationAdapter.INotifyItemSel
     }
 
     private fun startRecycler(yearsList: ArrayList<DateInformationVO>){
+        years.clear()
+        eficiency.clear()
         yearsList.forEach {year->
             this.years.add(year.date.toString())
             this.eficiency.add(year.efficiency!!.toInt())

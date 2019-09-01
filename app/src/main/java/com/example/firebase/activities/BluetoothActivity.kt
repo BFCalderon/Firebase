@@ -41,20 +41,10 @@ class BluetoothActivity : AppCompatActivity() {
 
     //Variable para reproducir el video
     private lateinit var videoTree: VideoView
-
-    //Informacion en la base de datos
-    var dateInfoBD: ArrayList<DateInformationVO> ?= ArrayList()
-    //Adapter
-    private var adapterInformationDates: TreeInformationAdapter ?= null
-    private var recyclerDateInfBD: RecyclerView ?= null
-    //BD
     private lateinit var treeInformationViewModel: TreeInformationViewModel
 
-    // EXTRA string to send on to mainactivity
-    private val EXTRA_DEVICE_ADDRESS = "device_address"
     // Member fields
     private lateinit var mBtAdapter: BluetoothAdapter
-    private lateinit var mPairedDevicesArrayAdapter: ArrayAdapter<String>
     private var btSocket: BluetoothSocket ?= null
     // SPP UUID service - this should work for most devices
     private val BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
@@ -106,7 +96,7 @@ class BluetoothActivity : AppCompatActivity() {
                 }
                 Handler().postDelayed({mmOutStream!!.write(254)},1)
                 //mmOutStream!!.write(msgBuffer)                //write bytes over BT connection via outstream
-            } catch (e: IOException) {
+            } catch (e: IOException){
                 //if you cannot write, close the application
                 Toast.makeText(baseContext, "La Conexión fallo", Toast.LENGTH_LONG).show()
                 finish()
@@ -125,10 +115,6 @@ class BluetoothActivity : AppCompatActivity() {
         treeInformationViewModel = run {
             ViewModelProviders.of(this).get(TreeInformationViewModel::class.java)
         }
-        //addTreeInformation()
-        Handler().postDelayed({ addObserver()},100)
-        //SqlLite End
-
         initButons()
         initBTReciberListener()
         initVideo()
@@ -194,7 +180,7 @@ class BluetoothActivity : AppCompatActivity() {
                             }
                             recDataString.delete(0, recDataString.length)
                             if (recDataString.indexOf("~") > 0) {                                           // make sure there data before ~
-                                testView1.text = "Tamaño del String = ${recDataString.length}"
+                                //testView1.text = "Tamaño del String = ${recDataString.length}"
                                 recDataString.delete(0, recDataString.length)                 //clear all string data
                             }
                         }
@@ -229,7 +215,9 @@ class BluetoothActivity : AppCompatActivity() {
 
     private fun closeBluetooth(){
         try {
-            btSocket!!.close()
+            if (btSocket!!.isConnected) {
+                btSocket!!.close()
+            }
         } catch (e2: IOException) {}
         try{
             mConnectedThread!!.interrupt()
@@ -281,14 +269,14 @@ class BluetoothActivity : AppCompatActivity() {
         }
     }
 
-    private fun addObserver() {
+    /*private fun addObserver() {
         treeInformationViewModel.getAllHoursInformation().observe(this, androidx.lifecycle.Observer<List<DateInformationVO>>{ dateInf ->
             dateInfoBD!!.clear()
             dateInf.forEach {
                 dateInfoBD!!.add(it)
             }
         })
-    }
+    }*/
 
     private fun Random.nextInt(range: IntRange): Int {
         return range.start + nextInt(range.last - range.first)
@@ -297,13 +285,13 @@ class BluetoothActivity : AppCompatActivity() {
     private fun addTreeInformation() {
         //for(i in 1..10){}
         //treeInformationViewModel.saveTreeInformation(DateInformationVO("${i+1}/08/2019","$i:19",i*10.5498f))
+        var iterator = 0
+        for(i in 2019..2024) treeInformationViewModel.saveYearInformation(DateInformationVO(iterator++, i+0,i*0.7f, Random().nextInt(0..100).toFloat()+0f))
 
-        for(i in 2019..2024) treeInformationViewModel.saveYearInformation(DateInformationVO(i+0,i*0.7f, Random().nextInt(0..100).toFloat()+0f))
+        for(i in 0..11) treeInformationViewModel.saveMonthInformation(DateInformationVO(iterator++,meses[i],i*0.3f, Random().nextInt(0..100).toFloat()))
 
-        for(i in 0..11) treeInformationViewModel.saveMonthInformation(DateInformationVO(meses[i],i*0.3f, Random().nextInt(0..100).toFloat()))
+        for(i in 1..31) treeInformationViewModel.saveDaysInformation(DateInformationVO(iterator++,i,Random().nextInt(0..50).toFloat(), Random().nextInt(0..100).toFloat()))
 
-        for(i in 1..31) treeInformationViewModel.saveDaysInformation(DateInformationVO(i,Random().nextInt(0..50).toFloat(), Random().nextInt(0..100).toFloat()))
-
-        for(i in 0..23) treeInformationViewModel.saveHoursInformation(DateInformationVO(i,Random().nextInt(0..50).toFloat(), Random().nextInt(0..100).toFloat()))
+        for(i in 0..23) treeInformationViewModel.saveHoursInformation(DateInformationVO(iterator++,i,Random().nextInt(0..50).toFloat(), Random().nextInt(0..100).toFloat()))
     }
 }

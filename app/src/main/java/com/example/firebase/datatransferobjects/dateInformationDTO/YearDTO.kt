@@ -8,6 +8,7 @@ import com.example.firebase.valueobjects.DateInformationVO
 object YearDTO : GenericDataTransferObject<YearEntity, DateInformationVO>() {
     override fun dataToObject(entity: YearEntity): DateInformationVO {
         return DateInformationVO(
+            entity.yearId!!,
             entity.year,
             entity.power,
             entity.efficiency
@@ -16,6 +17,7 @@ object YearDTO : GenericDataTransferObject<YearEntity, DateInformationVO>() {
 
     override fun objectToData(objectVO: DateInformationVO): YearEntity {
         return YearEntity(
+            objectVO.primaryKey,
             objectVO.date!!,
             objectVO.power!!,
             objectVO.efficiency
@@ -29,6 +31,7 @@ object YearDTO : GenericDataTransferObject<YearEntity, DateInformationVO>() {
     //Transforma los elementos que llegan de la base de datos como un List
     fun getInformationDate(dateInformation: YearEntity): DateInformationVO {
         return DateInformationVO(
+            primaryKey = dateInformation.yearId!!,
             date = dateInformation.year,
             power = dateInformation.power,
             efficiency = dateInformation.efficiency

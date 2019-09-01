@@ -11,6 +11,7 @@ object MonthDTO: GenericDataTransferObject<MonthEntity, DateInformationVO>() {
 
     override fun dataToObject(entity: MonthEntity): DateInformationVO {
         return DateInformationVO(
+            entity.monthId!!,
             entity.monthEntity,
             entity.power,
             entity.efficiency)
@@ -18,6 +19,7 @@ object MonthDTO: GenericDataTransferObject<MonthEntity, DateInformationVO>() {
 
     override fun objectToData(objectVO: DateInformationVO): MonthEntity {
         return MonthEntity(
+            objectVO.primaryKey,
             objectVO.foreingKey,
             objectVO.date,
             objectVO.power!!,
@@ -37,6 +39,7 @@ object MonthDTO: GenericDataTransferObject<MonthEntity, DateInformationVO>() {
     }*/
     fun getInformationDate(dateInformation: MonthEntity): DateInformationVO {
         return DateInformationVO(
+            primaryKey = dateInformation.monthId!!,
             date = dateInformation.monthId,
             power = dateInformation.power,
             efficiency = dateInformation.efficiency

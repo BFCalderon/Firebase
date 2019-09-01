@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.BluetoothActivity">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.BluetoothActivity">
 
     <RelativeLayout
             android:id="@+id/relativeCharging"
             android:layout_width="match_parent"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_height="match_parent">
 
         <VideoView
@@ -36,7 +36,7 @@
                 android:id="@+id/reconectar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_button_agude"
+                android:background="@drawable/round_child"
                 android:src="@drawable/ic_bluetooth"
                 android:contentDescription="CONECTAR"
                 android:layout_marginTop="10dp"
@@ -84,46 +84,42 @@
             android:id="@+id/relativeInformation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
-
-        <ImageView
-                android:id="@+id/transfer1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_transfer"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"/>
+            android:visibility="visible">
 
         <LinearLayout
                 android:id="@+id/linear1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
-
-            <TextView
-                    android:id="@+id/testView1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tamaño del String = ..."
-                    android:textSize="15sp" />
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:background="@drawable/round_title">
 
             <TextView
                     android:id="@+id/txtString"
-                    android:layout_width="fill_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="10"
                     android:layout_height="wrap_content"
                     android:text="DATOS RECIBIDOS:"
                     android:textSize="30sp" />
+
+            <ImageView
+                    android:id="@+id/transfer1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/ic_transfer"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"/>
         </LinearLayout>
 
         <ScrollView
                 android:id="@+id/scrollMeasures"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
+                android:layout_margin = "10dp"
                 android:layout_below="@+id/linear1"
                 android:layout_above="@+id/linearPruebaConexion"
                 android:layout_alignParentStart="true"
@@ -139,16 +135,17 @@
                 <LinearLayout
                         android:id="@+id/linear2"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/linear1"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="VADC 1: ">
+                            android:text="V. PANEL: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc1"
@@ -163,16 +160,17 @@
                 <LinearLayout
                         android:id="@+id/linear3"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/linear2"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:layout_marginLeft="50dp"
-                            android:text="VADC 2: ">
+                            android:text="V. AERO: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc2"
@@ -187,16 +185,17 @@
                 <LinearLayout
                         android:id="@+id/linear4"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/linear3"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:layout_marginLeft="50dp"
-                            android:text="VADC 3: ">
+                            android:text="V. BAT: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc3"
@@ -211,16 +210,17 @@
                 <LinearLayout
                         android:id="@+id/linear5"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/linear4"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="VADC 4: ">
+                            android:text="V. LOAD: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc4"
@@ -235,16 +235,17 @@
                 <LinearLayout
                         android:id="@+id/linear6"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/linear5"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="VADC 5: ">
+                            android:text="VCC: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc5"
@@ -259,16 +260,17 @@
                 <LinearLayout
                         android:id="@+id/linear7"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/linear6"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="VADC 6: ">
+                            android:text="I. IN: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc6"
@@ -283,16 +285,17 @@
                 <LinearLayout
                         android:id="@+id/linear8"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/linear7"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="VADC 7: ">
+                            android:text="I. BAT: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc7"
@@ -307,17 +310,18 @@
                 <LinearLayout
                         android:id="@+id/linear9"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/linear8"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="0dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="VADC 8: ">
+                            android:text="I. LOAD: ">
                     </TextView>
                     <TextView
                             android:id="@+id/adc8"
@@ -332,17 +336,18 @@
                 <LinearLayout
                         android:id="@+id/linear10"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/linear9"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="0dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
-                            android:text="EEPROM: ">
+                            android:text="POTENCIA: ">
                     </TextView>
                     <TextView
                             android:id="@+id/eeprom"
@@ -357,13 +362,14 @@
                 <LinearLayout
                         android:id="@+id/linear11"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/linear10"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="0dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
@@ -382,12 +388,13 @@
                 <LinearLayout
                         android:id="@+id/linear12"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="0dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@drawable/round_child">
                     <TextView
-                            android:layout_width="70dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="50dp"
                             android:gravity="center"
@@ -401,6 +408,15 @@
                             android:layout_gravity="center_vertical"
                             android:text="">
                     </TextView>
+
+                    <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_buttons"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|end"
+                            android:layout_marginEnd="270dp"
+                            android:layout_marginRight="270dp"
+                            android:layout_marginBottom="712dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -430,11 +446,6 @@
                             android:background="@drawable/background_null"/>
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerInformation"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 
         </ScrollView>

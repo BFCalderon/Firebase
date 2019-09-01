@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ShadowBorderButtonView">
+        <attr name="sbbackground" format="reference" />
+        <attr name="sbtextSize" format="float" />
+        <attr name="typeButtonView" format="enum">
+            <enum name="darkBlue" value="0" />
+            <enum name="darkGray" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <!--<declare-styleable name="ShadowBorderButtonView">
+        <attr name="sbbackground" format="reference" />
+        <attr name="sbtextSize" format="float" />
+        <attr name="typeButtonView" format="enum">
+            <enum name="darkBlue" value="0" />
+            <enum name="darkGray" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ShadowBorderButtonView">
+        <attr name="sbbackground" format="reference" />
+        <attr name="sbtextSize" format="float" />
+        <attr name="typeButtonView" format="enum">
+            <enum name="darkBlue" value="0" />
+            <enum name="darkGray" value="1" />
+        </attr>
+    </declare-styleable>-->
+</resources>

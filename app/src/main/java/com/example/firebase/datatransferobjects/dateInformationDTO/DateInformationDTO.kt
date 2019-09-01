@@ -8,6 +8,7 @@ import com.example.firebase.valueobjects.DateInformationVO
 object DateInformationDTO : GenericDataTransferObject<TreeInformationEntity, DateInformationVO>() {
     override fun dataToObject(entity: TreeInformationEntity): DateInformationVO {
         return DateInformationVO(
+            entity.dateId,
             entity.date,
             entity.power,
             entity.efficiency)
@@ -28,6 +29,7 @@ object DateInformationDTO : GenericDataTransferObject<TreeInformationEntity, Dat
     //Transforma los elementos que llegan de la base de datos como un List
     fun getInformationDate(dateInformation: TreeInformationEntity): DateInformationVO{
         return DateInformationVO(
+            primaryKey = dateInformation.dateId,
             date = dateInformation.date,
             power = dateInformation.power,
             efficiency = dateInformation.efficiency

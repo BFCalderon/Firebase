@@ -5,16 +5,18 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = HourEntity.TABLE_NAME)
-data class HourEntity(@ColumnInfo(name = FOREING_KEY) var foreingKey: Int?,
+data class HourEntity(@PrimaryKey @ColumnInfo(name = HOUR_ID) var hourId: Int?,
+
+                      @ColumnInfo(name = FOREING_KEY) var foreingKey: Int?,
                       @ColumnInfo(name = FOREING_KEY_1) var foreingKey1: Int?,
                       @ColumnInfo(name = FOREING_KEY_2) var foreingKey2: Int?,
                       @ColumnInfo(name = HOUR) var hour: Int?,
                       @ColumnInfo(name = POWER) var power: Float?,
                       @ColumnInfo(name = EFFICIENCY) var efficiency: Float?){
 
-    @PrimaryKey(autoGenerate = true)
+    /*@PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = HOUR_ID)
-    var hourId: Int = 0
+    var hourId: Int = 0*/
 
     companion object {
         const val TABLE_NAME = "HOUR"
